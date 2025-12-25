@@ -10,7 +10,7 @@ export default {
         'trail-sky': '#87a8c3',
       },
       fontFamily: {
-        'trail': ['Inter', 'system-ui', 'sans-serif'],
+        'trail': ['Geist', 'system-ui', 'sans-serif'],
       }
     },
   },
