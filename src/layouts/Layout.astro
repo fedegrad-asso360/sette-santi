@@ -13,7 +13,7 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		
@@ -26,8 +26,15 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 		<header class="bg-trail-green text-white shadow-lg">
 			<nav class="container mx-auto px-4 py-4">
 				<div class="flex justify-between items-center">
-					<a href="/" class="text-2xl font-bold text-trail-gold">
-						Sentiero dei Sette Santi
+					<a href="/" class="flex items-center gap-3 text-2xl font-bold text-trail-gold">
+						<img
+							src="/images/logo.svg"
+							alt="Logo Sentiero dei Sette Santi"
+							class="h-14 w-auto"
+							loading="eager"
+							decoding="async"
+						/>
+						<span>Sentiero dei Sette Santi</span>
 					</a>
 					<div class="hidden md:flex space-x-6">
 						<a href="/" class="hover:text-trail-gold transition-colors">Home</a>
@@ -53,7 +60,16 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 			<div class="container mx-auto px-4 py-8">
 				<div class="grid md:grid-cols-3 gap-8">
 					<div>
-						<h3 class="text-lg font-semibold mb-4">Sentiero dei Sette Santi</h3>
+						<div class="flex items-center gap-2 mb-4">
+							<img
+								src="/images/logo.svg"
+								alt="Logo Sentiero dei Sette Santi"
+								class="h-8 w-8"
+								loading="lazy"
+								decoding="async"
+							/>
+							<h3 class="text-lg font-semibold">Sentiero dei Sette Santi</h3>
+						</div>
 						<p class="text-gray-300">Un percorso spirituale e naturalistico attraverso la bellezza dell'Italia.</p>
 					</div>
 					<div>
