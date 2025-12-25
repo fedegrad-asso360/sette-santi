@@ -91,29 +91,173 @@ src/pages/
   ├── index.astro              # Homepage
   ├── percorsi/                # Trail routes
   │   └── [slug].astro        # Dynamic route for each stage
-  ├── blog/                    # Blog section (to be added)
+  ├── blog/                    # Blog section
   │   ├── index.astro         # Blog listing
   │   └── [slug].astro        # Individual blog posts
-  └── community/               # Community section (to be added)
+  └── community/               # Community section
       └── index.astro
 ```
+
+**Pages should be thin:**
+- Import and compose components
+- Handle data fetching/transformation
+- Pass data to components via props
+- Minimal inline markup - delegate to components
+- Keep business logic separate from presentation
 
 ### Component Organization
 ```
 src/components/
-  ├── MapComponent.astro       # Map integration
-  ├── TrailCard.astro          # Trail stage cards
-  ├── BlogPost.astro           # Blog post component
-  └── CommentSection.astro     # User comments
+  ├── HeroCarousel.astro          # Homepage carousel
+  ├── MapComponent.astro           # Map integration
+  ├── HeroSection.astro            # Reusable hero sections
+  ├── StatsGrid.astro              # Statistics display grid
+  ├── TrailCard.astro              # Trail stage cards
+  ├── BlogPostCard.astro           # Blog post preview cards
+  ├── PricingCard.astro            # Pricing/booking option cards
+  ├── FeatureCard.astro            # Feature highlight cards
+  ├── CTASection.astro             # Call-to-action sections
+  ├── StageNavigation.astro        # Navigation between trail stages
+  ├── AccommodationCard.astro      # Accommodation display cards
+  └── HighlightsList.astro         # Bulleted list with icons
 ```
+
+### Component Guidelines
+
+**All components should:**
+- Define TypeScript interfaces for Props at the top
+- Be small and focused on a single responsibility
+- Accept data via props rather than importing it directly
+- Use composition via slots when appropriate
+- Include appropriate default values for optional props
+
+**Naming Conventions:**
+- Components: PascalCase in imports (e.g., `TrailCard`)
+- Files: kebab-case for filenames (e.g., `trail-card.astro`)
+- Props interfaces: Named `Props` and exported
+- Use descriptive prop names that clarify intent
 
 ### Data Management
 ```
 src/data/
   ├── trails.ts                # Trail stages data
-  ├── blog-posts.ts            # Blog content metadata
-  └── site-config.ts           # Site-wide configuration
+  ├── blog-posts.ts            # Blog content metadata (if needed)
+  └── site-config.ts           # Site-wide configuration (if needed)
 ```
+
+**Data Best Practices:**
+- Keep data separate from components
+- Use TypeScript interfaces for all data structures
+- Export helper functions alongside data (e.g., `getTrailStageBySlug`)
+- Components receive data via props, never import data directly
+
+## Available Reusable Components
+
+### HeroSection.astro
+Hero header section with gradient background. Used at the top of most pages.
+
+**Props:**
+- `title` (string, required): Main heading
+- `subtitle` (string, optional): Subheading text
+- `badge` (string, optional): Badge text above title
+- `className` (string, optional): Additional CSS classes
+- Supports `<slot>` for additional content
+
+**Example:**
+```astro
+<HeroSection 
+  title="Community"
+  subtitle="Condividi le tue esperienze"
+  badge="Tappa 1 di 7"
+>
+  <StatsGrid stats={stats} columns={3} />
+</HeroSection>
+```
+
+### StatsGrid.astro
+Grid of statistics with value and label pairs.
+
+**Props:**
+- `stats` (StatItem[], required): Array of `{ value, label }` objects
+- `columns` (2 | 3 | 4, optional): Number of columns, default 3
+- `className` (string, optional): Additional CSS classes
+
+### TrailCard.astro
+Card component displaying trail stage information.
+
+**Props:**
+- `id` (number, required): Stage number
+- `title` (string, required): Stage title
+- `subtitle` (string, required): Stage subtitle
+- `distance` (string, required): Distance info
+- `duration` (string, required): Duration info
+- `difficulty` ('Facile' | 'Intermedio' | 'Difficile', required)
+- `slug` (string, required): URL slug for the stage
+
+### BlogPostCard.astro
+Card component for blog post previews.
+
+**Props:**
+- `title` (string, required): Post title
+- `description` (string, required): Post excerpt
+- `date` (Date, required): Publication date
+- `slug` (string, required): URL slug
+- `tags` (string[], optional): Array of tags
+- `image` (string, optional): Cover image URL
+
+### PricingCard.astro
+Card for pricing/booking options with features list.
+
+**Props:**
+- `icon` (string, required): Emoji icon
+- `title` (string, required): Option title
+- `description` (string, required): Description
+- `features` (PricingFeature[], required): Array of `{ text }` objects
+- `price` (string, required): Price text
+- `badge` (string, optional): Badge text (e.g., "PIÙ RICHIESTO")
+- `highlighted` (boolean, optional): Whether to highlight, default false
+
+### FeatureCard.astro
+Card component for feature highlights.
+
+**Props:**
+- `icon` (string, required): Emoji icon
+- `title` (string, required): Feature title
+- `description` (string, required): Feature description
+- `className` (string, optional): Additional CSS classes
+
+### CTASection.astro
+Call-to-action section with title, description, and button.
+
+**Props:**
+- `title` (string, required): Section title
+- `description` (string, required): Section description
+- `buttonText` (string, required): Button text
+- `buttonLink` (string, required): Button link
+- `backgroundColor` ('green' | 'brown' | 'gold', optional): Background color, default 'green'
+
+### StageNavigation.astro
+Navigation between trail stages (previous/next).
+
+**Props:**
+- `previousStage` (StageLink | null, optional): `{ slug, title }` for previous stage
+- `nextStage` (StageLink | null, optional): `{ slug, title }` for next stage
+
+### AccommodationCard.astro
+Card for accommodation information.
+
+**Props:**
+- `name` (string, required): Accommodation name
+- `type` (string, required): Type (e.g., "Rifugio", "Hotel")
+- `description` (string, required): Description
+- `contact` (string, optional): Contact email
+
+### HighlightsList.astro
+Bulleted list with checkmark icons.
+
+**Props:**
+- `highlights` (string[], required): Array of items to display
+- `title` (string, optional): Section title, default "Punti di Interesse"
 
 ## Feature-Specific Guidelines
 
@@ -206,6 +350,16 @@ src/data/
 3. Test that existing functionality still works
 4. Update TypeScript interfaces if data structure changes
 5. Keep backwards compatibility where possible
+6. Check if changes affect any shared components
+
+### Creating New Components
+1. Define TypeScript interface for Props
+2. Keep component focused on single responsibility
+3. Accept data via props, not direct imports
+4. Use slots for content composition when appropriate
+5. Follow naming conventions (PascalCase import, kebab-case file)
+6. Test in isolation before using in pages
+7. Document props and usage in copilot-instructions.md
 
 ### Testing
 - Manually test all new features in development mode
@@ -236,6 +390,30 @@ src/data/
 3. Make it responsive (use md:, lg: prefixes)
 4. Add hover states for interactive elements
 5. Ensure consistent spacing with other components
+
+### Using Existing Components in Pages
+1. Import required components at the top of the page
+2. Prepare data in the frontmatter section
+3. Pass data via props to components
+4. Use components instead of inline HTML markup
+5. Compose components with slots when needed
+
+**Example:**
+```astro
+---
+import HeroSection from '../components/HeroSection.astro';
+import StatsGrid from '../components/StatsGrid.astro';
+
+const stats = [
+  { value: '7', label: 'Tappe' },
+  { value: '~120', label: 'km Totali' }
+];
+---
+
+<HeroSection title="Percorsi" subtitle="Scopri le tappe">
+  <StatsGrid stats={stats} columns={2} />
+</HeroSection>
+```
 
 ## Maintenance Notes
 

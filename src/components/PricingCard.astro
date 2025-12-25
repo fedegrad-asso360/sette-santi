@@ -1,0 +1,38 @@
+---
+export interface PricingFeature {
+  text: string;
+}
+
+export interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  features: PricingFeature[];
+  price: string;
+  badge?: string | undefined;
+  highlighted?: boolean | undefined;
+}
+
+const { icon, title, description, features, price, badge, highlighted = false } = Astro.props;
+---
+
+<div class={`rounded-lg p-8 text-center backdrop-blur-sm ${
+  highlighted 
+    ? 'bg-white bg-opacity-20 border-2 border-trail-gold' 
+    : 'bg-white bg-opacity-10'
+}`}>
+  <div class="text-4xl mb-4">{icon}</div>
+  <h3 class="text-xl font-bold mb-4">{title}</h3>
+  <p class="mb-6">{description}</p>
+  <ul class="text-sm mb-6 space-y-2">
+    {features.map(feature => (
+      <li>✓ {feature.text}</li>
+    ))}
+  </ul>
+  {badge && (
+    <div class="text-xs text-trail-gold font-semibold mb-2">{badge}</div>
+  )}
+  <button class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors w-full">
+    {price}
+  </button>
+</div>

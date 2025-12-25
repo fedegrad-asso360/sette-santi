@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -27,41 +28,35 @@ function formatDate(date: Date): string {
 
 <Layout title={`${entry.data.title} - Blog`} description={entry.data.description}>
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-trail-green to-trail-brown text-white py-16">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
-        <a 
-          href="/blog" 
-          class="inline-flex items-center text-trail-gold hover:text-white mb-6 transition-colors"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Torna al Blog
-        </a>
-        
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">{entry.data.title}</h1>
-        
-        <div class="flex flex-wrap items-center gap-4 text-gray-200">
-          <time datetime={entry.data.date.toISOString()}>
-            {formatDate(entry.data.date)}
-          </time>
-          <span>•</span>
-          <span>{entry.data.author}</span>
-        </div>
-        
-        {entry.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mt-4">
-            {entry.data.tags.map((tag) => (
-              <span class="px-3 py-1 bg-trail-gold bg-opacity-30 text-white text-sm rounded-full">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
+  <HeroSection title={entry.data.title}>
+    <a 
+      href="/blog" 
+      class="inline-flex items-center text-trail-gold hover:text-white mb-6 transition-colors"
+    >
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Torna al Blog
+    </a>
+    
+    <div class="flex flex-wrap items-center gap-4 text-gray-200 mt-6">
+      <time datetime={entry.data.date.toISOString()}>
+        {formatDate(entry.data.date)}
+      </time>
+      <span>•</span>
+      <span>{entry.data.author}</span>
     </div>
-  </section>
+    
+    {entry.data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-4">
+        {entry.data.tags.map((tag) => (
+          <span class="px-3 py-1 bg-trail-gold bg-opacity-30 text-white text-sm rounded-full">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </HeroSection>
 
   <!-- Blog Content -->
   <article class="py-16 bg-white">

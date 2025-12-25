@@ -1,6 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import MapComponent from '../../components/MapComponent.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import StatsGrid from '../../components/StatsGrid.astro';
+import HighlightsList from '../../components/HighlightsList.astro';
+import AccommodationCard from '../../components/AccommodationCard.astro';
+import StageNavigation from '../../components/StageNavigation.astro';
 import { trailStages, getTrailStageBySlug, getAllTrailSlugs } from '../../data/trails';
 
 export function getStaticPaths() {
@@ -20,6 +25,14 @@ if (!stage) {
 const currentIndex = trailStages.findIndex(s => s.slug === slug);
 const previousStage = currentIndex > 0 ? trailStages[currentIndex - 1] : null;
 const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentIndex + 1] : null;
+
+// Prepare stats for the stage
+const stageStats = [
+	{ value: stage.distance, label: 'Distanza' },
+	{ value: stage.duration, label: 'Durata' },
+	{ value: stage.elevation, label: 'Dislivello' },
+	{ value: stage.difficulty, label: 'Difficoltà' }
+];
 ---
 
 <Layout 
@@ -27,41 +40,13 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
   description={stage.description}
 >
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-trail-green to-trail-brown text-white py-16">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="text-trail-gold font-bold text-lg mb-2">Tappa {stage.id} di {trailStages.length}</div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">{stage.title}</h1>
-        <p class="text-xl md:text-2xl mb-8 text-gray-200">{stage.subtitle}</p>
-        
-        <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-trail-gold">{stage.distance}</div>
-            <div class="text-sm text-gray-300">Distanza</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-trail-gold">{stage.duration}</div>
-            <div class="text-sm text-gray-300">Durata</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-trail-gold">{stage.elevation}</div>
-            <div class="text-sm text-gray-300">Dislivello</div>
-          </div>
-          <div class="text-center">
-            <div class={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-              stage.difficulty === 'Facile' ? 'bg-green-500 text-white' :
-              stage.difficulty === 'Intermedio' ? 'bg-yellow-500 text-white' :
-              'bg-red-500 text-white'
-            }`}>
-              {stage.difficulty}
-            </div>
-            <div class="text-sm text-gray-300 mt-1">Difficoltà</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection 
+    title={stage.title}
+    subtitle={stage.subtitle}
+    badge={`Tappa ${stage.id} di ${trailStages.length}`}
+  >
+    <StatsGrid stats={stageStats} columns={4} className="max-w-2xl mx-auto mt-8" />
+  </HeroSection>
 
   <!-- Description and Map -->
   <section class="py-16 bg-white">
@@ -71,17 +56,7 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
           <h2 class="text-3xl font-bold text-trail-green mb-6">Descrizione del Percorso</h2>
           <p class="text-lg text-gray-700 leading-relaxed mb-8">{stage.description}</p>
           
-          <h3 class="text-2xl font-bold text-trail-green mb-4">Punti di Interesse</h3>
-          <ul class="space-y-3">
-            {stage.highlights.map(highlight => (
-              <li class="flex items-start">
-                <svg class="w-5 h-5 text-trail-gold mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span class="text-gray-700">{highlight}</span>
-              </li>
-            ))}
-          </ul>
+          <HighlightsList highlights={stage.highlights} />
         </div>
         
         <div>
@@ -120,23 +95,12 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
         
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {stage.accommodation.map(acc => (
-            <div class="bg-white rounded-lg shadow-lg p-6">
-              <div class="flex justify-between items-start mb-4">
-                <h3 class="text-xl font-bold text-trail-green">{acc.name}</h3>
-                <span class="bg-trail-gold text-white px-3 py-1 rounded-full text-sm font-medium">
-                  {acc.type}
-                </span>
-              </div>
-              <p class="text-gray-700 mb-4">{acc.description}</p>
-              {acc.contact && (
-                <a 
-                  href={`mailto:${acc.contact}`}
-                  class="text-trail-green hover:text-trail-brown font-medium"
-                >
-                  {acc.contact}
-                </a>
-              )}
-            </div>
+            <AccommodationCard 
+              name={acc.name}
+              type={acc.type}
+              description={acc.description}
+              contact={acc.contact}
+            />
           ))}
         </div>
       </div>
@@ -144,62 +108,8 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
   )}
 
   <!-- Navigation -->
-  <section class="py-12 bg-trail-green text-white">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <div class="text-center md:text-left">
-          {previousStage ? (
-            <a 
-              href={`/percorsi/${previousStage.slug}`}
-              class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
-            >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-              <div>
-                <div class="text-sm opacity-80">Tappa Precedente</div>
-                <div class="font-semibold">{previousStage.title}</div>
-              </div>
-            </a>
-          ) : (
-            <div class="text-gray-400">
-              <div class="text-sm">Tappa Precedente</div>
-              <div class="font-semibold">Prima tappa</div>
-            </div>
-          )}
-        </div>
-        
-        <div class="text-center">
-          <a 
-            href="/"
-            class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
-          >
-            Tutte le Tappe
-          </a>
-        </div>
-        
-        <div class="text-center md:text-right">
-          {nextStage ? (
-            <a 
-              href={`/percorsi/${nextStage.slug}`}
-              class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
-            >
-              <div>
-                <div class="text-sm opacity-80">Prossima Tappa</div>
-                <div class="font-semibold">{nextStage.title}</div>
-              </div>
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          ) : (
-            <div class="text-gray-400">
-              <div class="text-sm">Prossima Tappa</div>
-              <div class="font-semibold">Ultima tappa</div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  </section>
+  <StageNavigation 
+    previousStage={previousStage}
+    nextStage={nextStage}
+  />
 </Layout>

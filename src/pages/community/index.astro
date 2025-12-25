@@ -1,17 +1,56 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import HighlightsList from '../../components/HighlightsList.astro';
+
+const communityFeatures = [
+  {
+    icon: '💬',
+    title: 'Condividi Esperienze',
+    description: 'Racconta la tua esperienza sul sentiero, condividi foto, emozioni e consigli con altri pellegrini.'
+  },
+  {
+    icon: '🤝',
+    title: 'Trova Compagni',
+    description: 'Cerca altri pellegrini che percorreranno il sentiero nelle tue stesse date e camminate insieme.'
+  },
+  {
+    icon: '💡',
+    title: 'Chiedi Consigli',
+    description: 'Hai dubbi su equipaggiamento, tappe o logistica? La community è qui per aiutarti.'
+  },
+  {
+    icon: '📸',
+    title: 'Galleria Fotografica',
+    description: 'Condividi le tue foto più belle del cammino e scopri i panorami attraverso gli occhi degli altri.'
+  },
+  {
+    icon: '⭐',
+    title: 'Recensioni',
+    description: 'Leggi e scrivi recensioni su alloggi, ristoranti e servizi lungo il percorso.'
+  },
+  {
+    icon: '📅',
+    title: 'Eventi',
+    description: 'Scopri eventi, incontri e camminate di gruppo organizzati dalla community.'
+  }
+];
+
+const communityTasks = [
+  'Scrivere e rispondere ai messaggi',
+  'Creare discussioni su temi specifici',
+  'Votare i contenuti più utili',
+  'Seguire altri membri della community'
+];
 ---
 
 <Layout title="Community - Sentiero dei Sette Santi" description="Unisciti alla community del Sentiero dei Sette Santi. Condividi le tue esperienze e connettiti con altri pellegrini.">
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-trail-green to-trail-brown text-white py-16">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-trail-gold">Community</h1>
-      <p class="text-xl md:text-2xl max-w-3xl mx-auto">
-        Condividi le tue esperienze e connettiti con altri pellegrini
-      </p>
-    </div>
-  </section>
+  <HeroSection 
+    title="Community"
+    subtitle="Condividi le tue esperienze e connettiti con altri pellegrini"
+  />
 
   <!-- Community Intro -->
   <section class="py-16 bg-white">
@@ -33,59 +72,13 @@ import Layout from '../../layouts/Layout.astro';
       <h2 class="text-3xl font-bold text-trail-green mb-12 text-center">Cosa Puoi Fare</h2>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <!-- Feature 1 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">💬</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Condividi Esperienze</h3>
-          <p class="text-gray-700">
-            Racconta la tua esperienza sul sentiero, condividi foto, emozioni e consigli con altri pellegrini.
-          </p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">🤝</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Trova Compagni</h3>
-          <p class="text-gray-700">
-            Cerca altri pellegrini che percorreranno il sentiero nelle tue stesse date e camminate insieme.
-          </p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">💡</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Chiedi Consigli</h3>
-          <p class="text-gray-700">
-            Hai dubbi su equipaggiamento, tappe o logistica? La community è qui per aiutarti.
-          </p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">📸</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Galleria Fotografica</h3>
-          <p class="text-gray-700">
-            Condividi le tue foto più belle del cammino e scopri i panorami attraverso gli occhi degli altri.
-          </p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">⭐</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Recensioni</h3>
-          <p class="text-gray-700">
-            Leggi e scrivi recensioni su alloggi, ristoranti e servizi lungo il percorso.
-          </p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
-          <div class="text-5xl mb-4">📅</div>
-          <h3 class="text-xl font-bold text-trail-green mb-3">Eventi</h3>
-          <p class="text-gray-700">
-            Scopri eventi, incontri e camminate di gruppo organizzati dalla community.
-          </p>
-        </div>
+        {communityFeatures.map(feature => (
+          <FeatureCard 
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -103,32 +96,9 @@ import Layout from '../../layouts/Layout.astro';
           <p class="text-gray-600 mb-6">
             Stiamo lavorando per creare uno spazio interattivo dove potrai:
           </p>
-          <ul class="text-left max-w-md mx-auto mb-8 space-y-2">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-trail-gold mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="text-gray-700">Scrivere e rispondere ai messaggi</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-trail-gold mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="text-gray-700">Creare discussioni su temi specifici</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-trail-gold mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="text-gray-700">Votare i contenuti più utili</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-trail-gold mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="text-gray-700">Seguire altri membri della community</span>
-            </li>
-          </ul>
+          <div class="text-left max-w-md mx-auto mb-8">
+            <HighlightsList highlights={communityTasks} title="" />
+          </div>
           <p class="text-gray-600 mb-6">
             Nel frattempo, puoi unirti alla conversazione sui nostri canali social o contattarci via email.
           </p>

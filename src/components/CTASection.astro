@@ -1,0 +1,32 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  backgroundColor?: 'green' | 'brown' | 'gold';
+}
+
+const { title, description, buttonText, buttonLink, backgroundColor = 'green' } = Astro.props;
+
+const bgColors = {
+  'green': 'bg-trail-green',
+  'brown': 'bg-trail-brown',
+  'gold': 'bg-trail-gold'
+};
+---
+
+<section class={`py-16 ${bgColors[backgroundColor]} text-white`}>
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-trail-gold">{title}</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">
+      {description}
+    </p>
+    <a 
+      href={buttonLink}
+      class="bg-trail-gold text-trail-brown px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors inline-block"
+    >
+      {buttonText}
+    </a>
+  </div>
+</section>

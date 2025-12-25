@@ -2,7 +2,58 @@
 import Layout from '../layouts/Layout.astro';
 import MapComponent from '../components/MapComponent.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
+import StatsGrid from '../components/StatsGrid.astro';
+import TrailCard from '../components/TrailCard.astro';
+import PricingCard from '../components/PricingCard.astro';
 import { trailStages } from '../data/trails';
+
+const stats = [
+	{ value: trailStages.length, label: 'Tappe' },
+	{ value: '~120', label: 'km Totali' },
+	{ value: '7-10', label: 'Giorni' }
+];
+
+const pricingOptions = [
+	{
+		icon: '🎒',
+		title: 'Cammino Individuale',
+		description: 'Percorri il sentiero al tuo ritmo, con supporto logistico e mappe dettagliate.',
+		features: [
+			{ text: 'Mappe e tracce GPS' },
+			{ text: 'Lista alloggi consigliati' },
+			{ text: 'Supporto telefonico' }
+		],
+		price: 'Da €299',
+		highlighted: false
+	},
+	{
+		icon: '👥',
+		title: 'Gruppo Guidato',
+		description: 'Unisciti a un gruppo di pellegrini con guida esperta e supporto completo.',
+		features: [
+			{ text: 'Guida esperta' },
+			{ text: 'Trasporto bagagli' },
+			{ text: 'Pasti inclusi' },
+			{ text: 'Alloggi prenotati' }
+		],
+		price: 'Da €799',
+		badge: 'PIÙ RICHIESTO',
+		highlighted: true
+	},
+	{
+		icon: '⭐',
+		title: 'Esperienza Premium',
+		description: 'Vivi il cammino con tutti i comfort, alloggi di lusso e servizi esclusivi.',
+		features: [
+			{ text: 'Alloggi di lusso' },
+			{ text: 'Chef personale' },
+			{ text: 'Trasferimenti privati' },
+			{ text: 'Guida spirituale' }
+		],
+		price: 'Da €1,499',
+		highlighted: false
+	}
+];
 ---
 
 <Layout title="Sentiero dei Sette Santi - Cammino Spirituale e Naturalistico">
@@ -27,20 +78,7 @@ import { trailStages } from '../data/trails';
 						racconta la storia di un santo e della terra che lo ha accolto, 
 						offrendo momenti di riflessione e meraviglia.
 					</p>
-					<div class="grid grid-cols-3 gap-6 text-center">
-						<div>
-							<div class="text-3xl font-bold text-trail-brown">{trailStages.length}</div>
-							<div class="text-sm text-gray-600">Tappe</div>
-						</div>
-						<div>
-							<div class="text-3xl font-bold text-trail-brown">~120</div>
-							<div class="text-sm text-gray-600">km Totali</div>
-						</div>
-						<div>
-							<div class="text-3xl font-bold text-trail-brown">7-10</div>
-							<div class="text-sm text-gray-600">Giorni</div>
-						</div>
-					</div>
+					<StatsGrid stats={stats} columns={3} />
 				</div>
 				<div>
 					<MapComponent height="500px" center={[44.0, 10.0]} zoom={6} />
@@ -62,47 +100,15 @@ import { trailStages } from '../data/trails';
 			
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{trailStages.map((stage) => (
-					<div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-					<div class="h-48 bg-gradient-to-br from-trail-sky to-trail-green flex items-center justify-center">
-							<div class="text-center text-white">
-								<div class="text-6xl font-bold mb-2">{stage.id}</div>
-								<div class="text-sm opacity-80">Tappa {stage.id}</div>
-							</div>
-						</div>
-						<div class="p-6">
-						<h3 class="text-xl font-bold text-trail-green mb-2">{stage.title}</h3>
-							<p class="text-gray-600 mb-4 text-sm">{stage.subtitle}</p>
-							<div class="flex justify-between items-center text-sm text-gray-500 mb-4">
-								<span class="flex items-center">
-									<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-									</svg>
-									{stage.distance}
-								</span>
-								<span class="flex items-center">
-									<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-									</svg>
-									{stage.duration}
-								</span>
-							</div>
-							<div class="flex justify-between items-center">
-								<span class={`px-3 py-1 rounded-full text-xs font-medium ${
-									stage.difficulty === 'Facile' ? 'bg-green-100 text-green-800' :
-									stage.difficulty === 'Intermedio' ? 'bg-yellow-100 text-yellow-800' :
-									'bg-red-100 text-red-800'
-								}`}>
-									{stage.difficulty}
-								</span>
-								<a 
-									href={`/percorsi/${stage.slug}`} 
-								class="text-trail-green hover:text-trail-brown font-medium text-sm"
-								>
-									Scopri di più →
-								</a>
-							</div>
-						</div>
-					</div>
+					<TrailCard 
+						id={stage.id}
+						title={stage.title}
+						subtitle={stage.subtitle}
+						distance={stage.distance}
+						duration={stage.duration}
+						difficulty={stage.difficulty}
+						slug={stage.slug}
+					/>
 				))}
 			</div>
 		</div>
@@ -120,50 +126,17 @@ import { trailStages } from '../data/trails';
 			</div>
 			
 			<div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-				<div class="bg-white bg-opacity-10 rounded-lg p-8 text-center backdrop-blur-sm">
-					<div class="text-4xl mb-4">🎒</div>
-					<h3 class="text-xl font-bold mb-4">Cammino Individuale</h3>
-					<p class="mb-6">Percorri il sentiero al tuo ritmo, con supporto logistico e mappe dettagliate.</p>
-					<ul class="text-sm mb-6 space-y-2">
-						<li>✓ Mappe e tracce GPS</li>
-						<li>✓ Lista alloggi consigliati</li>
-						<li>✓ Supporto telefonico</li>
-					</ul>
-					<button class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors w-full">
-						Da €299
-					</button>
-				</div>
-				
-				<div class="bg-white bg-opacity-20 rounded-lg p-8 text-center backdrop-blur-sm border-2 border-trail-gold">
-					<div class="text-4xl mb-4">👥</div>
-					<h3 class="text-xl font-bold mb-4">Gruppo Guidato</h3>
-					<p class="mb-6">Unisciti a un gruppo di pellegrini con guida esperta e supporto completo.</p>
-					<ul class="text-sm mb-6 space-y-2">
-						<li>✓ Guida esperta</li>
-						<li>✓ Trasporto bagagli</li>
-						<li>✓ Pasti inclusi</li>
-						<li>✓ Alloggi prenotati</li>
-					</ul>
-					<div class="text-xs text-trail-gold font-semibold mb-2">PIÙ RICHIESTO</div>
-					<button class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors w-full">
-						Da €799
-					</button>
-				</div>
-				
-				<div class="bg-white bg-opacity-10 rounded-lg p-8 text-center backdrop-blur-sm">
-					<div class="text-4xl mb-4">⭐</div>
-					<h3 class="text-xl font-bold mb-4">Esperienza Premium</h3>
-					<p class="mb-6">Vivi il cammino con tutti i comfort, alloggi di lusso e servizi esclusivi.</p>
-					<ul class="text-sm mb-6 space-y-2">
-						<li>✓ Alloggi di lusso</li>
-						<li>✓ Chef personale</li>
-						<li>✓ Trasferimenti privati</li>
-						<li>✓ Guida spirituale</li>
-					</ul>
-					<button class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors w-full">
-						Da €1,499
-					</button>
-				</div>
+				{pricingOptions.map(option => (
+					<PricingCard 
+						icon={option.icon}
+						title={option.title}
+						description={option.description}
+						features={option.features}
+						price={option.price}
+						badge={option.badge}
+						highlighted={option.highlighted}
+					/>
+				))}
 			</div>
 			
 			<div class="text-center mt-12">

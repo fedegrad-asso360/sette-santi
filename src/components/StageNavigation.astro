@@ -1,0 +1,72 @@
+---
+export interface StageLink {
+  slug: string;
+  title: string;
+}
+
+export interface Props {
+  previousStage?: StageLink | null | undefined;
+  nextStage?: StageLink | null | undefined;
+}
+
+const { previousStage, nextStage } = Astro.props;
+---
+
+<section class="py-12 bg-trail-green text-white">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <div class="text-center md:text-left">
+        {previousStage ? (
+          <a 
+            href={`/percorsi/${previousStage.slug}`}
+            class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <div>
+              <div class="text-sm opacity-80">Tappa Precedente</div>
+              <div class="font-semibold">{previousStage.title}</div>
+            </div>
+          </a>
+        ) : (
+          <div class="text-gray-400">
+            <div class="text-sm">Tappa Precedente</div>
+            <div class="font-semibold">Prima tappa</div>
+          </div>
+        )}
+      </div>
+      
+      <div class="text-center">
+        <a 
+          href="/"
+          class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
+        >
+          Tutte le Tappe
+        </a>
+      </div>
+      
+      <div class="text-center md:text-right">
+        {nextStage ? (
+          <a 
+            href={`/percorsi/${nextStage.slug}`}
+            class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
+          >
+            <div>
+              <div class="text-sm opacity-80">Prossima Tappa</div>
+              <div class="font-semibold">{nextStage.title}</div>
+            </div>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        ) : (
+          <div class="text-gray-400">
+            <div class="text-sm">Prossima Tappa</div>
+            <div class="font-semibold">Ultima tappa</div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
