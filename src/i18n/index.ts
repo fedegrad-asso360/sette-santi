@@ -123,21 +123,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'whereWeAre.description': 'The trail winds through the Sibillini Mountains in the Marche region. Click on the markers to get directions to the starting points of the stages.',
     'whereWeAre.tip': 'Tip',
     'whereWeAre.tipText': 'Click on a marker on the map to get directions from your location.',
-    'nav.booking': 'Book',
-    
-    // Homepage
-    'hero.title': 'Path of the Seven Saints',
-    'hero.subtitle': 'A spiritual journey through Italy that unites faith, nature and culture, following in the footsteps of seven great saints of Christian tradition.',
-    'hero.cta.discover': 'Discover the Stages',
-    'hero.cta.book': 'Book the Journey',
-    
-    'intro.title': 'A Journey of Faith and Beauty',
-    'intro.description1': 'The Path of the Seven Saints is more than just a hiking trail: it is an experience that touches the soul, crossing the most significant places of Marche spirituality.',
-    'intro.description2': 'From San Ruffino through the Sibillini Mountains to the Sanctuary of Ambro, a circular path that combines faith, nature and local traditions, offering moments of reflection and wonder.',
-    
-    'stats.stages': 'Stages',
-    'stats.totalKm': 'Total km',
-    'stats.days': 'Days',
     
     'trails.title': 'The Five Stages',
     'trails.subtitle': 'A circular route through the sacred places of Marche, between spirituality, nature and local culture.',
