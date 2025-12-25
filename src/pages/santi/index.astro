@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import SaintCard from '../../components/SaintCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { saints } from '../../data/saints';
+
+const pageTitle = 'I Sette Santi';
+const pageDescription = 'Scopri i Sette Santi del percorso, le loro storie e i santuari che custodiscono la memoria della fede nelle Marche.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <HeroSection 
+    title="I Sette Santi"
+    subtitle="Un percorso attraverso la fede e la storia"
+    badge="Spiritualità"
+  >
+    <p class="text-lg text-white/90 max-w-3xl mx-auto mt-6">
+      Il Sentiero dei Sette Santi prende il nome dalle sette chiese e santuari dedicati a santi che si incontrano lungo il cammino. 
+      Ogni santo ha una storia particolare, legata al territorio e alla devozione popolare delle Marche. 
+      Scopri le loro vite, i miracoli e i luoghi sacri che custodiscono la loro memoria.
+    </p>
+  </HeroSection>
+
+  <section class="py-16 px-4 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-trail-brown mb-4">
+          I Santi del Cammino
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Sette figure spirituali che accompagnano il pellegrino in un viaggio di fede attraverso le montagne marchigiane. 
+          Ogni santo rappresenta un aspetto del cammino spirituale e della tradizione cristiana locale.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {saints.map((saint) => (
+          <SaintCard
+            id={saint.id}
+            name={saint.name}
+            subtitle={saint.subtitle}
+            description={saint.description}
+            slug={saint.slug}
+            festivity={saint.festivity}
+            image={saint.images[0]}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-white">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-trail-brown mb-8 text-center">
+        La Tradizione Spirituale
+      </h2>
+      <div class="prose prose-lg max-w-none">
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Il culto dei santi ha radici profonde nella tradizione cristiana marchigiana. Fin dal Medioevo, 
+          le comunità locali hanno costruito chiese e santuari dedicati a figure spirituali che rappresentavano 
+          valori fondamentali: il martirio, la penitenza, l'evangelizzazione, la liberazione.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Questi luoghi sacri divennero punti di riferimento non solo spirituali, ma anche sociali ed economici. 
+          Le feste patronali riunivano le comunità, i santuari offrivano rifugio ai pellegrini e ai viandanti, 
+          le reliquie erano oggetto di devozione e venerazione.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          Percorrere il Sentiero dei Sette Santi significa immergersi in questa ricca tradizione, 
+          scoprendo come la fede abbia plasmato il territorio e la cultura locale nel corso dei secoli. 
+          Ogni santuario racconta una storia di devozione, arte e comunità.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Vuoi vivere questa esperienza spirituale?"
+    description="Prenota il tuo cammino e scopri i Sette Santi lungo il percorso più suggestivo delle Marche."
+    buttonText="Prenota ora"
+    buttonLink="/prenota"
+    backgroundColor="brown"
+  />
+</Layout>

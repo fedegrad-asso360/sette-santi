@@ -50,6 +50,48 @@ Card per visualizzare informazioni su una tappa del percorso.
 ```astro
 <TrailCard 
   id={1}
+  title="Da San Ruffino a Rubbiano"
+  subtitle="L'inizio del cammino"
+  distance="15 km"
+  duration="5-6 ore"
+  difficulty="Intermedio"
+  slug="san-ruffino-rubbiano"
+/>
+```
+
+#### SaintCard.astro
+Card per visualizzare informazioni su uno dei Sette Santi.
+
+```astro
+<SaintCard 
+  id={1}
+  name="San Ruffino"
+  subtitle="Il Vescovo Martire"
+  description="San Ruffino, vescovo e martire, è il patrono di Amandola..."
+  slug="san-ruffino"
+  festivity="18 agosto"
+  image="https://example.com/image.jpg"
+/>
+```
+
+Props:
+- `id` (number): Numero progressivo del santo
+- `name` (string): Nome del santo
+- `subtitle` (string): Sottotitolo descrittivo
+- `description` (string): Breve descrizione
+- `slug` (string): Slug per URL della pagina di dettaglio
+- `festivity` (string, optional): Data della festività
+- `image` (string, optional): URL dell'immagine (utilizza placeholder se non fornita)
+
+Caratteristiche:
+- Immagine con overlay gradiente
+- Badge con numero progressivo
+- Lazy loading delle immagini
+- Link alla pagina di dettaglio
+
+#### BlogPostCard.astro
+<TrailCard 
+  id={1}
   title="San Francesco d'Assisi"
   subtitle="Da Assisi a Gubbio"
   distance="25 km"

@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import HighlightsList from '../../components/HighlightsList.astro';
+import CTASection from '../../components/CTASection.astro';
+import { saints } from '../../data/saints';
+
+export async function getStaticPaths() {
+  return saints.map((saint) => ({
+    params: { slug: saint.slug },
+    props: { saint },
+  }));
+}
+
+const { saint } = Astro.props;
+
+// Prepara l'immagine placeholder
+const placeholderImage = `https://placehold.co/1200x600/5e3b20/ffffff?text=${encodeURIComponent(saint.name)}`;
+const imageUrl = saint.images[0] || placeholderImage;
+
+// Prepara i dati per la lista highlights
+const churchDetails = [
+  `${saint.church.name} - ${saint.church.location}`,
+  saint.church.period || 'Epoca storica',
+];
+
+if (saint.church.architecture) {
+  churchDetails.push(saint.church.architecture);
+}
+
+if (saint.festivity) {
+  churchDetails.push(`Festività: ${saint.festivity}`);
+}
+
+// Trova il santo precedente e successivo per la navigazione
+const currentIndex = saints.findIndex(s => s.slug === saint.slug);
+const previousSaint = currentIndex > 0 ? saints[currentIndex - 1] : null;
+const nextSaint = currentIndex < saints.length - 1 ? saints[currentIndex + 1] : null;
+---
+
+<Layout 
+  title={`${saint.name} - I Sette Santi`} 
+  description={saint.description}
+>
+  <HeroSection 
+    title={saint.name}
+    subtitle={saint.subtitle}
+    badge={`Santo ${saint.id} di 7`}
+  />
+
+  <article class="py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Immagine Principale -->
+      <div class="mb-12 rounded-lg overflow-hidden shadow-xl">
+        <img 
+          src={imageUrl} 
+          alt={saint.name}
+          class="w-full h-96 object-cover"
+        />
+      </div>
+
+      <!-- Introduzione -->
+      <div class="mb-12">
+        <p class="text-xl text-gray-700 leading-relaxed">
+          {saint.description}
+        </p>
+      </div>
+
+      <!-- Storia del Santo -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-trail-brown mb-6 flex items-center">
+          <svg class="w-8 h-8 mr-3 text-trail-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          La Storia
+        </h2>
+        <div class="prose prose-lg max-w-none">
+          {saint.history.split('\n\n').map((paragraph) => (
+            <p class="text-gray-700 leading-relaxed mb-4">{paragraph}</p>
+          ))}
+        </div>
+      </section>
+
+      <!-- La Chiesa/Santuario -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-trail-brown mb-6 flex items-center">
+          <svg class="w-8 h-8 mr-3 text-trail-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          {saint.church.name}
+        </h2>
+        <div class="bg-trail-sky/10 rounded-lg p-8 mb-6">
+          <p class="text-gray-700 leading-relaxed mb-6">
+            {saint.church.description}
+          </p>
+          <HighlightsList 
+            highlights={churchDetails}
+            title="Informazioni"
+          />
+        </div>
+      </section>
+
+      <!-- Mappa (placeholder per futura implementazione) -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-trail-brown mb-6">Posizione</h2>
+        <div class="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
+          <div class="text-center text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <p>Mappa interattiva in arrivo</p>
+            <p class="text-sm mt-2">Coordinate: {saint.coordinates[0]}, {saint.coordinates[1]}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigazione tra i santi -->
+      <nav class="border-t border-gray-200 pt-8 mt-12">
+        <div class="flex justify-between items-center">
+          <div class="flex-1">
+            {previousSaint ? (
+              <a 
+                href={`/santi/${previousSaint.slug}`}
+                class="group flex items-center text-trail-brown hover:text-trail-gold transition-colors"
+              >
+                <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <div>
+                  <div class="text-sm text-gray-500">Precedente</div>
+                  <div class="font-medium">{previousSaint.name}</div>
+                </div>
+              </a>
+            ) : (
+              <div></div>
+            )}
+          </div>
+          <div class="flex-1 text-center">
+            <a 
+              href="/santi"
+              class="inline-flex items-center px-6 py-3 bg-trail-brown text-white rounded-lg hover:bg-trail-gold transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              Tutti i Santi
+            </a>
+          </div>
+          <div class="flex-1 text-right">
+            {nextSaint ? (
+              <a 
+                href={`/santi/${nextSaint.slug}`}
+                class="group inline-flex items-center text-trail-brown hover:text-trail-gold transition-colors"
+              >
+                <div class="text-right">
+                  <div class="text-sm text-gray-500">Successivo</div>
+                  <div class="font-medium">{nextSaint.name}</div>
+                </div>
+                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            ) : (
+              <div></div>
+            )}
+          </div>
+        </div>
+      </nav>
+    </div>
+  </article>
+
+  <CTASection
+    title="Scopri tutti i Santi del percorso"
+    description="Esplora le storie degli altri santi e pianifica il tuo cammino spirituale attraverso le Marche."
+    buttonText="Vedi tutti i Santi"
+    buttonLink="/santi"
+    backgroundColor="brown"
+  />
+</Layout>

@@ -4,8 +4,10 @@ import MapComponent from '../components/MapComponent.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
 import StatsGrid from '../components/StatsGrid.astro';
 import TrailCard from '../components/TrailCard.astro';
+import SaintCard from '../components/SaintCard.astro';
 import PricingCard from '../components/PricingCard.astro';
 import { trailStages } from '../data/trails';
+import { saints } from '../data/saints';
 
 const stats = [
 	{ value: trailStages.length, label: 'Tappe' },
@@ -110,6 +112,45 @@ const pricingOptions = [
 						slug={stage.slug}
 					/>
 				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Sette Santi Section -->
+	<section id="santi" class="py-16 bg-white">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-12">
+				<h2 class="text-4xl font-bold text-trail-brown mb-4">I Sette Santi</h2>
+				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+					Sette figure spirituali che accompagnano il pellegrino lungo il cammino, 
+					custodi della fede e della tradizione marchigiana.
+				</p>
+			</div>
+			
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+				{saints.map((saint) => (
+					<SaintCard 
+						id={saint.id}
+						name={saint.name}
+						subtitle={saint.subtitle}
+						description={saint.description}
+						slug={saint.slug}
+						festivity={saint.festivity}
+						image={saint.images[0]}
+					/>
+				))}
+			</div>
+
+			<div class="text-center">
+				<a 
+					href="/santi" 
+					class="inline-flex items-center px-8 py-3 bg-trail-brown text-white rounded-lg hover:bg-trail-gold transition-colors text-lg font-medium"
+				>
+					Scopri tutti i Santi
+					<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</a>
 			</div>
 		</div>
 	</section>
