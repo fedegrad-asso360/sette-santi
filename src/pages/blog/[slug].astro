@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog', ({ data }) => {
+    return data.draft !== true;
+  });
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, 
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Format date helper
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('it-IT', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout title={`${entry.data.title} - Blog`} description={entry.data.description}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-trail-green to-trail-brown text-white py-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <a 
+          href="/blog" 
+          class="inline-flex items-center text-trail-gold hover:text-white mb-6 transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Torna al Blog
+        </a>
+        
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{entry.data.title}</h1>
+        
+        <div class="flex flex-wrap items-center gap-4 text-gray-200">
+          <time datetime={entry.data.date.toISOString()}>
+            {formatDate(entry.data.date)}
+          </time>
+          <span>•</span>
+          <span>{entry.data.author}</span>
+        </div>
+        
+        {entry.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {entry.data.tags.map((tag) => (
+              <span class="px-3 py-1 bg-trail-gold bg-opacity-30 text-white text-sm rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Content -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg prose-trail">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Navigation -->
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <a 
+          href="/blog"
+          class="inline-flex items-center bg-trail-green text-white px-6 py-3 rounded-lg hover:bg-trail-brown transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Tutti gli Articoli
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  .prose-trail {
+    color: #374151;
+  }
+  
+  .prose-trail h1, 
+  .prose-trail h2, 
+  .prose-trail h3 {
+    color: #2d5016;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .prose-trail h1 {
+    font-size: 2.25rem;
+  }
+  
+  .prose-trail h2 {
+    font-size: 1.875rem;
+  }
+  
+  .prose-trail h3 {
+    font-size: 1.5rem;
+  }
+  
+  .prose-trail p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+  
+  .prose-trail ul, 
+  .prose-trail ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .prose-trail li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose-trail strong {
+    color: #8b4513;
+    font-weight: 600;
+  }
+  
+  .prose-trail a {
+    color: #2d5016;
+    text-decoration: underline;
+  }
+  
+  .prose-trail a:hover {
+    color: #8b4513;
+  }
+</style>
