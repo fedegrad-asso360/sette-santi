@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import LanguageSelector from '../components/LanguageSelector.astro';
 import { getLangFromUrl, useTranslations } from '../i18n';
 
@@ -33,9 +34,11 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 			<nav class="container mx-auto pl-2 pr-4 py-4">
 				<div class="flex justify-between items-center">
 					<a href="/" class="flex items-center gap-3 text-2xl font-bold text-trail-gold">
-						<img
+						<Image
 							src="/images/logo.svg"
 							alt="Logo Sentiero dei Sette Santi"
+							width={56}
+							height={56}
 							class="h-14 w-auto"
 							loading="eager"
 							decoding="async"
@@ -82,9 +85,11 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 				<div class="grid md:grid-cols-3 gap-8">
 					<div>
 						<div class="flex items-center gap-2 mb-4">
-							<img
+							<Image
 								src="/images/logo.svg"
 								alt="Logo Sentiero dei Sette Santi"
+								width={32}
+								height={32}
 								class="h-8 w-8"
 								loading="lazy"
 								decoding="async"
