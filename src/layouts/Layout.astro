@@ -24,7 +24,7 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 	</head>
 	<body class="font-trail bg-gray-50 min-h-screen flex flex-col">
 		<header class="bg-trail-green text-white shadow-lg">
-			<nav class="container mx-auto px-4 py-4">
+			<nav class="container mx-auto pl-2 pr-4 py-4">
 				<div class="flex justify-between items-center">
 					<a href="/" class="flex items-center gap-3 text-2xl font-bold text-trail-gold">
 						<img
@@ -34,7 +34,6 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 							loading="eager"
 							decoding="async"
 						/>
-						<span>Sentiero dei Sette Santi</span>
 					</a>
 					<div class="hidden md:flex space-x-6">
 						<a href="/" class="hover:text-trail-gold transition-colors">Home</a>
@@ -43,11 +42,21 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 						<a href="/community" class="hover:text-trail-gold transition-colors">Community</a>
 						<a href="/#prenota" class="hover:text-trail-gold transition-colors">Prenota</a>
 					</div>
-					<button class="md:hidden text-white hover:text-trail-gold">
+					<button id="mobile-menu-button" class="md:hidden text-white hover:text-trail-gold">
 						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 						</svg>
 					</button>
+				</div>
+				<!-- Mobile Menu -->
+				<div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+					<div class="flex flex-col space-y-3">
+						<a href="/" class="hover:text-trail-gold transition-colors py-2">Home</a>
+						<a href="/#tappe" class="hover:text-trail-gold transition-colors py-2">Le Tappe</a>
+						<a href="/blog" class="hover:text-trail-gold transition-colors py-2">Blog</a>
+						<a href="/community" class="hover:text-trail-gold transition-colors py-2">Community</a>
+						<a href="/#prenota" class="hover:text-trail-gold transition-colors py-2">Prenota</a>
+					</div>
 				</div>
 			</nav>
 		</header>
@@ -90,5 +99,18 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 				</div>
 			</div>
 		</footer>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const mobileMenuButton = document.getElementById('mobile-menu-button');
+				const mobileMenu = document.getElementById('mobile-menu');
+				
+				if (mobileMenuButton && mobileMenu) {
+					mobileMenuButton.addEventListener('click', () => {
+						mobileMenu.classList.toggle('hidden');
+					});
+				}
+			});
+		</script>
 	</body>
 </html>
