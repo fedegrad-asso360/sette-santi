@@ -1,0 +1,116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts, sorted by date (newest first)
+const allPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = allPosts.sort((a, b) => 
+  b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Format date helper
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('it-IT', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout title="Blog - Sentiero dei Sette Santi" description="Notizie, eventi e storie dal Sentiero dei Sette Santi">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-trail-green to-trail-brown text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-trail-gold">Blog</h1>
+      <p class="text-xl md:text-2xl max-w-3xl mx-auto">
+        Notizie, eventi e storie dal cammino spirituale
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      {sortedPosts.length === 0 ? (
+        <div class="text-center py-12">
+          <p class="text-xl text-gray-600">Nessun articolo disponibile al momento.</p>
+        </div>
+      ) : (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {sortedPosts.map((post) => (
+            <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              {post.data.image && (
+                <div class="h-48 bg-gradient-to-br from-trail-sky to-trail-green flex items-center justify-center">
+                  <div class="text-white text-6xl opacity-50">📝</div>
+                </div>
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <time class="text-sm text-gray-500" datetime={post.data.date.toISOString()}>
+                    {formatDate(post.data.date)}
+                  </time>
+                </div>
+                <h2 class="text-2xl font-bold text-trail-green mb-3 hover:text-trail-brown transition-colors">
+                  <a href={`/blog/${post.slug}`}>
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="text-gray-700 mb-4 line-clamp-3">
+                  {post.data.description}
+                </p>
+                {post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {post.data.tags.map((tag) => (
+                      <span class="px-3 py-1 bg-trail-gold bg-opacity-20 text-trail-brown text-xs rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <a 
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center text-trail-green hover:text-trail-brown font-medium transition-colors"
+                >
+                  Leggi di più
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-trail-green text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4 text-trail-gold">Vuoi Condividere la Tua Storia?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Se hai percorso il Sentiero dei Sette Santi e vuoi raccontare la tua esperienza, 
+        contattaci! Saremo felici di pubblicare la tua storia sul nostro blog.
+      </p>
+      <a 
+        href="mailto:info@settesanti.it" 
+        class="bg-trail-gold text-trail-green px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors inline-block"
+      >
+        Contattaci
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
