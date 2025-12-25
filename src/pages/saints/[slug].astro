@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import HighlightsList from '../../components/HighlightsList.astro';
-import CTASection from '../../components/CTASection.astro';
+import ItemNavigation from '../../components/ItemNavigation.astro';
 import { saints } from '../../data/saints';
 
 export async function getStaticPaths() {
@@ -116,46 +116,11 @@ const nextSaint = currentIndex < saints.length - 1 ? saints[currentIndex + 1] : 
       </section>
 
       <!-- Navigazione tra i santi -->
-      <nav class="border-t border-gray-200 pt-8 mt-12">
-        <div class="flex justify-between items-center">
-          <div class="flex-1">
-            {previousSaint ? (
-              <a 
-                href={`/saints/${previousSaint.slug}`}
-                class="group flex items-center text-trail-brown hover:text-trail-gold transition-colors"
-              >
-                <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-                <div>
-                  <div class="text-sm text-gray-500">Precedente</div>
-                  <div class="font-medium">{previousSaint.name}</div>
-                </div>
-              </a>
-            ) : (
-              <div></div>
-            )}
-          </div>
-          <div class="flex-1 text-right">
-            {nextSaint ? (
-              <a 
-                href={`/saints/${nextSaint.slug}`}
-                class="group inline-flex items-center text-trail-brown hover:text-trail-gold transition-colors"
-              >
-                <div class="text-right">
-                  <div class="text-sm text-gray-500">Successivo</div>
-                  <div class="font-medium">{nextSaint.name}</div>
-                </div>
-                <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            ) : (
-              <div></div>
-            )}
-          </div>
-        </div>
-      </nav>
+      <ItemNavigation
+        previous={previousSaint ? { slug: previousSaint.slug, title: previousSaint.name } : null}
+        next={nextSaint ? { slug: nextSaint.slug, title: nextSaint.name } : null}
+        basePath="/saints"
+      />
     </div>
   </article>
 

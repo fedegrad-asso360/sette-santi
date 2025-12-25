@@ -104,7 +104,15 @@ const title = t('hero.title');
 ### Page Structure
 ```
 src/pages/
-  ├── index.astro              # Homepage
+  ├── index.astro              # Homepage (Italian, default)
+  ├── en/                      # English version
+  │   └── index.astro         # English homepage
+  ├── de/                      # German version
+  │   └── index.astro         # German homepage
+  ├── fr/                      # French version
+  │   └── index.astro         # French homepage
+  ├── es/                      # Spanish version
+  │   └── index.astro         # Spanish homepage
   ├── trails/                  # Trail routes (English URI)
   │   └── [slug].astro        # Dynamic route for each stage
   ├── saints/                  # Saints section (English URI)
@@ -124,21 +132,55 @@ src/pages/
 - Minimal inline markup - delegate to components
 - Keep business logic separate from presentation
 
+**Homepage Pattern:**
+All homepage versions (index.astro, en/index.astro, etc.) follow the same structure:
+```astro
+import HeroCarousel from '../components/HeroCarousel.astro';
+import IntroSection from '../components/IntroSection.astro';
+import TrailsSection from '../components/TrailsSection.astro';
+import SaintsSection from '../components/SaintsSection.astro';
+import BookingSection from '../components/BookingSection.astro';
+
+<Layout>
+  <HeroCarousel />
+  <IntroSection lang={lang} />
+  <TrailsSection lang={lang} />
+  <SaintsSection lang={lang} />
+  <BookingSection lang={lang} />
+</Layout>
+```
+
 ### Component Organization
 ```
 src/components/
-  ├── HeroCarousel.astro          # Homepage carousel
-  ├── MapComponent.astro           # Map integration
+  # Homepage Section Components
+  ├── IntroSection.astro           # Homepage intro with stats and map
+  ├── TrailsSection.astro          # Homepage trails section
+  ├── SaintsSection.astro          # Homepage saints section
+  ├── BookingSection.astro         # Homepage booking section
+  
+  # Layout Components
+  ├── HeroCarousel.astro           # Homepage carousel
   ├── HeroSection.astro            # Reusable hero sections
+  ├── MapComponent.astro           # Map integration
+  
+  # Display Components
   ├── StatsGrid.astro              # Statistics display grid
+  ├── HighlightsList.astro         # Bulleted list with icons
+  
+  # Card Components
   ├── TrailCard.astro              # Trail stage cards
+  ├── SaintCard.astro              # Saint preview cards
   ├── BlogPostCard.astro           # Blog post preview cards
   ├── PricingCard.astro            # Pricing/booking option cards
   ├── FeatureCard.astro            # Feature highlight cards
-  ├── CTASection.astro             # Call-to-action sections
-  ├── StageNavigation.astro        # Navigation between trail stages
   ├── AccommodationCard.astro      # Accommodation display cards
-  └── HighlightsList.astro         # Bulleted list with icons
+  
+  # Navigation Components
+  ├── ItemNavigation.astro         # Generic prev/next navigation
+  
+  # Action Components
+  └── CTASection.astro             # Call-to-action sections
 ```
 
 ### Component Guidelines
@@ -176,7 +218,55 @@ src/i18n/
 
 ## Available Reusable Components
 
-### HeroSection.astro
+### Homepage Section Components
+
+#### IntroSection.astro
+Homepage intro section with statistics, description, and interactive map.
+
+**Props:**
+- `lang` (Language, required): Current language for translations
+
+**Example:**
+```astro
+<IntroSection lang="it" />
+```
+
+#### TrailsSection.astro
+Homepage trails section displaying all trail stages in a grid.
+
+**Props:**
+- `lang` (Language, required): Current language for translations
+
+**Example:**
+```astro
+<TrailsSection lang="en" />
+```
+
+#### SaintsSection.astro
+Homepage saints section displaying all seven saints.
+
+**Props:**
+- `lang` (Language, required): Current language for translations
+
+**Example:**
+```astro
+<SaintsSection lang="it" />
+```
+
+#### BookingSection.astro
+Homepage booking section with pricing cards.
+
+**Props:**
+- `lang` (Language, required): Current language for translations
+
+**Example:**
+```astro
+<BookingSection lang="it" />
+```
+
+### Layout Components
+
+#### HeroSection.astro
 Hero header section with gradient background. Used at the top of most pages.
 
 **Props:**
@@ -197,7 +287,20 @@ Hero header section with gradient background. Used at the top of most pages.
 </HeroSection>
 ```
 
-### StatsGrid.astro
+#### HeroCarousel.astro
+Carousel hero section for homepage with images and text overlay.
+
+**Props:**
+- `images` (string[], optional): Array of image URLs (defaults to placeholders)
+
+**Example:**
+```astro
+<HeroCarousel images={['/img1.jpg', '/img2.jpg']} />
+```
+
+### Display Components
+
+#### StatsGrid.astro
 Grid of statistics with value and label pairs.
 
 **Props:**
@@ -205,7 +308,35 @@ Grid of statistics with value and label pairs.
 - `columns` (2 | 3 | 4, optional): Number of columns, default 3
 - `className` (string, optional): Additional CSS classes
 
-### TrailCard.astro
+**Example:**
+```astro
+<StatsGrid 
+  stats={[
+    { value: '5', label: 'Tappe' },
+    { value: '~81', label: 'km Totali' }
+  ]}
+  columns={2}
+/>
+```
+
+#### HighlightsList.astro
+Bulleted list with checkmark icons.
+
+**Props:**
+- `highlights` (string[], required): Array of items to display
+- `title` (string, optional): Section title, default "Punti di Interesse"
+
+**Example:**
+```astro
+<HighlightsList 
+  highlights={['Chiesa di San Ruffino', 'Panorama sui Sibillini']}
+  title="Punti Salienti"
+/>
+```
+
+### Card Components
+
+#### TrailCard.astro
 Card component displaying trail stage information.
 
 **Props:**
@@ -259,12 +390,24 @@ Call-to-action section with title, description, and button.
 - `buttonLink` (string, required): Button link
 - `backgroundColor` ('green' | 'brown' | 'gold', optional): Background color, default 'green'
 
-### StageNavigation.astro
-Navigation between trail stages (previous/next).
+### ItemNavigation.astro
+Generic navigation component for previous/next items (trails, saints, blog posts).
 
 **Props:**
-- `previousStage` (StageLink | null, optional): `{ slug, title }` for previous stage
-- `nextStage` (StageLink | null, optional): `{ slug, title }` for next stage
+- `previous` (NavigationLink | null, optional): `{ slug, title }` for previous item
+- `next` (NavigationLink | null, optional): `{ slug, title }` for next item
+- `basePath` (string, required): Base path (e.g., "/trails", "/saints")
+- `previousLabel` (string, optional): Label for previous, default "Precedente"
+- `nextLabel` (string, optional): Label for next, default "Successivo"
+
+**Example:**
+```astro
+<ItemNavigation 
+  previous={{ slug: 'tappa-1', title: 'Prima Tappa' }}
+  next={{ slug: 'tappa-3', title: 'Terza Tappa' }}
+  basePath="/trails"
+/>
+```
 
 ### AccommodationCard.astro
 Card for accommodation information.

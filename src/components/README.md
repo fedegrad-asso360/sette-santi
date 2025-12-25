@@ -19,6 +19,13 @@ Tutti i componenti seguono queste best practices:
 #### HeroSection.astro
 Sezione hero con gradiente di sfondo per intestazioni delle pagine.
 
+**Props:**
+- `title` (string, required): Titolo principale
+- `subtitle` (string, optional): Sottotitolo
+- `badge` (string, optional): Badge sopra il titolo
+- `className` (string, optional): Classi CSS aggiuntive
+- Supporta `<slot>` per contenuto addizionale
+
 ```astro
 <HeroSection 
   title="Titolo Principale"
@@ -29,8 +36,23 @@ Sezione hero con gradiente di sfondo per intestazioni delle pagine.
 </HeroSection>
 ```
 
+#### HeroCarousel.astro
+Carosello hero per la homepage con immagini e overlay di testo.
+
+**Props:**
+- `images` (string[], optional): Array di URL immagini (default: placeholders)
+
+```astro
+<HeroCarousel images={['/img1.jpg', '/img2.jpg']} />
+```
+
 #### StatsGrid.astro
 Griglia di statistiche con valori e etichette.
+
+**Props:**
+- `stats` (StatItem[], required): Array di `{ value, label }`
+- `columns` (2 | 3 | 4, optional): Numero di colonne, default 3
+- `className` (string, optional): Classi CSS aggiuntive
 
 ```astro
 <StatsGrid 
@@ -42,10 +64,62 @@ Griglia di statistiche con valori e etichette.
 />
 ```
 
+### Sezioni Homepage
+
+#### IntroSection.astro
+Sezione introduttiva della homepage con statistiche e mappa.
+
+**Props:**
+- `lang` (Language, required): Lingua corrente per le traduzioni
+
+```astro
+<IntroSection lang="it" />
+```
+
+#### TrailsSection.astro
+Sezione delle tappe del percorso.
+
+**Props:**
+- `lang` (Language, required): Lingua corrente per le traduzioni
+
+```astro
+<TrailsSection lang="it" />
+```
+
+#### SaintsSection.astro
+Sezione dei sette santi.
+
+**Props:**
+- `lang` (Language, required): Lingua corrente per le traduzioni
+
+```astro
+<SaintsSection lang="it" />
+```
+
+#### BookingSection.astro
+Sezione prenotazioni con pricing cards.
+
+**Props:**
+- `lang` (Language, required): Lingua corrente per le traduzioni
+
+```astro
+<BookingSection lang="it" />
+```
+
 ### Card Components
 
 #### TrailCard.astro
 Card per visualizzare informazioni su una tappa del percorso.
+
+**Props:**
+- `id` (number, required): Numero tappa
+- `title` (string, required): Titolo tappa
+- `subtitle` (string, required): Sottotitolo
+- `distance` (string, required): Distanza (es. "15 km")
+- `duration` (string, required): Durata (es. "4-5 ore")
+- `difficulty` ('Facile' | 'Intermedio' | 'Difficile', required)
+- `slug` (string, required): Slug URL
+- `image` (string, optional): URL immagine
 
 ```astro
 <TrailCard 
@@ -62,79 +136,82 @@ Card per visualizzare informazioni su una tappa del percorso.
 #### SaintCard.astro
 Card per visualizzare informazioni su uno dei Sette Santi.
 
+**Props:**
+- `id` (number, required): Numero progressivo del santo
+- `name` (string, required): Nome del santo
+- `subtitle` (string, required): Sottotitolo descrittivo
+- `description` (string, required): Breve descrizione
+- `slug` (string, required): Slug per URL
+- `festivity` (string, optional): Data della festività
+- `image` (string, optional): URL dell'immagine
+
 ```astro
 <SaintCard 
   id={1}
   name="San Ruffino"
   subtitle="Il Vescovo Martire"
-  description="San Ruffino, vescovo e martire, è il patrono di Amandola..."
+  description="San Ruffino, vescovo e martire..."
   slug="san-ruffino"
   festivity="18 agosto"
-  image="https://example.com/image.jpg"
-/>
-```
-
-Props:
-- `id` (number): Numero progressivo del santo
-- `name` (string): Nome del santo
-- `subtitle` (string): Sottotitolo descrittivo
-- `description` (string): Breve descrizione
-- `slug` (string): Slug per URL della pagina di dettaglio
-- `festivity` (string, optional): Data della festività
-- `image` (string, optional): URL dell'immagine (utilizza placeholder se non fornita)
-
-Caratteristiche:
-- Immagine con overlay gradiente
-- Badge con numero progressivo
-- Lazy loading delle immagini
-- Link alla pagina di dettaglio
-
-#### BlogPostCard.astro
-<TrailCard 
-  id={1}
-  title="San Francesco d'Assisi"
-  subtitle="Da Assisi a Gubbio"
-  distance="25 km"
-  duration="6-7 ore"
-  difficulty="Intermedio"
-  slug="san-francesco-assisi"
+  image="/images/san-ruffino.jpg"
 />
 ```
 
 #### BlogPostCard.astro
 Card per anteprima di articoli del blog.
 
+**Props:**
+- `title` (string, required): Titolo articolo
+- `description` (string, required): Descrizione breve
+- `date` (Date, required): Data pubblicazione
+- `slug` (string, required): Slug URL
+- `tags` (string[], optional): Array di tag
+- `image` (string, optional): URL immagine copertina
+
 ```astro
 <BlogPostCard 
-  title="Titolo Articolo"
-  description="Breve descrizione..."
+  title="Preparazione Fisica"
+  description="Come prepararsi al meglio..."
   date={new Date()}
-  slug="titolo-articolo"
-  tags={['trekking', 'spiritualità']}
-  image="/images/post.jpg"
+  slug="preparazione-fisica"
+  tags={['trekking', 'consigli']}
 />
 ```
 
 #### PricingCard.astro
 Card per opzioni di prezzo/prenotazione.
 
+**Props:**
+- `icon` (string, required): Emoji icon
+- `title` (string, required): Titolo opzione
+- `description` (string, required): Descrizione
+- `features` (PricingFeature[], required): Array di `{ text }`
+- `price` (string, required): Prezzo formattato
+- `badge` (string, optional): Badge testo (es. "PIÙ RICHIESTO")
+- `highlighted` (boolean, optional): Se evidenziare, default false
+
 ```astro
 <PricingCard 
   icon="🎒"
   title="Cammino Individuale"
-  description="Descrizione dell'opzione..."
+  description="Percorso in autonomia..."
   features={[
     { text: 'Mappe GPS' },
     { text: 'Supporto telefonico' }
   ]}
   price="Da €299"
-  badge="PIÙ RICHIESTO"
-  highlighted={true}
+  highlighted={false}
 />
 ```
 
 #### FeatureCard.astro
 Card per evidenziare caratteristiche o servizi.
+
+**Props:**
+- `icon` (string, required): Emoji icon
+- `title` (string, required): Titolo feature
+- `description` (string, required): Descrizione
+- `className` (string, optional): Classi CSS aggiuntive
 
 ```astro
 <FeatureCard 
@@ -146,6 +223,12 @@ Card per evidenziare caratteristiche o servizi.
 
 #### AccommodationCard.astro
 Card per informazioni su alloggi.
+
+**Props:**
+- `name` (string, required): Nome struttura
+- `type` (string, required): Tipo (es. "Rifugio", "Hotel")
+- `description` (string, required): Descrizione
+- `contact` (string, optional): Email contatto
 
 ```astro
 <AccommodationCard 
@@ -161,6 +244,10 @@ Card per informazioni su alloggi.
 #### HighlightsList.astro
 Lista puntata con icone checkmark.
 
+**Props:**
+- `highlights` (string[], required): Array di elementi
+- `title` (string, optional): Titolo sezione, default "Punti di Interesse"
+
 ```astro
 <HighlightsList 
   highlights={[
@@ -172,13 +259,21 @@ Lista puntata con icone checkmark.
 />
 ```
 
-#### StageNavigation.astro
-Navigazione tra tappe precedente/successiva.
+#### ItemNavigation.astro
+Navigazione generica tra elementi precedente/successivo (tappe, santi, articoli).
+
+**Props:**
+- `previous` (NavigationLink | null, optional): `{ slug, title }` elemento precedente
+- `next` (NavigationLink | null, optional): `{ slug, title }` elemento successivo
+- `basePath` (string, required): Path base (es. "/trails", "/saints")
+- `previousLabel` (string, optional): Label per precedente, default "Precedente"
+- `nextLabel` (string, optional): Label per successivo, default "Successivo"
 
 ```astro
-<StageNavigation 
-  previousStage={{ slug: 'tappa-1', title: 'Prima Tappa' }}
-  nextStage={{ slug: 'tappa-3', title: 'Terza Tappa' }}
+<ItemNavigation 
+  previous={{ slug: 'tappa-1', title: 'Prima Tappa' }}
+  next={{ slug: 'tappa-3', title: 'Terza Tappa' }}
+  basePath="/trails"
 />
 ```
 
@@ -186,6 +281,13 @@ Navigazione tra tappe precedente/successiva.
 
 #### CTASection.astro
 Sezione call-to-action con titolo, descrizione e pulsante.
+
+**Props:**
+- `title` (string, required): Titolo
+- `description` (string, required): Descrizione
+- `buttonText` (string, required): Testo pulsante
+- `buttonLink` (string, required): Link pulsante
+- `backgroundColor` ('green' | 'brown' | 'gold', optional): Colore sfondo, default 'green'
 
 ```astro
 <CTASection 
@@ -199,15 +301,17 @@ Sezione call-to-action con titolo, descrizione e pulsante.
 
 ### Componenti Speciali
 
-#### HeroCarousel.astro
-Carosello hero per la homepage con immagini e call-to-action.
-
-```astro
-<HeroCarousel />
-```
-
 #### MapComponent.astro
 Componente per visualizzare mappe interattive.
+
+**Props:**
+- `height` (string, optional): Altezza mappa, default "400px"
+- `center` ([number, number], required): Coordinate centro [lat, lng]
+- `zoom` (number, optional): Livello zoom, default 12
+- `gpxUrl` (string, optional): URL file GPX da visualizzare
+- `markers` (Marker[], optional): Array di marker personalizzati
+- `showDirections` (boolean, optional): Mostra direzioni, default false
+- `circles` (Circle[], optional): Array di cerchi da disegnare
 
 ```astro
 <MapComponent 
@@ -218,12 +322,34 @@ Componente per visualizzare mappe interattive.
 />
 ```
 
+#### LanguageSelector.astro
+Selettore lingua (componente futuro per cambio lingua).
+
 ## Convenzioni di Naming
 
 - **File**: kebab-case (es. `trail-card.astro`)
 - **Import**: PascalCase (es. `import TrailCard from './TrailCard.astro'`)
 - **Props Interface**: Sempre chiamata `Props` ed esportata
 - **Props**: camelCase (es. `backgroundColor`, `buttonText`)
+
+## Struttura Tipica di un Componente
+
+```astro
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Default description' } = Astro.props;
+---
+
+<div class="component">
+  <h1>{title}</h1>
+  {description && <p>{description}</p>}
+  <slot />
+</div>
+```
 
 ## Aggiungere Nuovi Componenti
 
@@ -235,49 +361,31 @@ Componente per visualizzare mappe interattive.
 6. Documenta il componente in questo README
 7. Aggiungi il componente a `.github/copilot-instructions.md`
 
-## Esempio Completo
+## Componenti Rimossi/Deprecati
 
-```astro
----
-// src/components/esempio-card.astro
+- ~~**HomePage.astro**~~ - Rimosso: sostituito da sezioni modulari (IntroSection, TrailsSection, SaintsSection, BookingSection)
+- ~~**StageNavigation.astro**~~ - Rimosso: sostituito da ItemNavigation.astro più generico
 
-export interface Props {
-  title: string;                    // Required
-  description?: string | undefined; // Optional con undefined esplicito
-  active?: boolean | undefined;     // Optional boolean
-  className?: string | undefined;   // Optional CSS classes
-}
+## Best Practices
 
-const { 
-  title, 
-  description, 
-  active = false,                   // Default value
-  className = "" 
-} = Astro.props;
----
+1. **Sempre definire Props TypeScript** con `export interface Props`
+2. **Usare valori di default** per props opzionali
+3. **Preferire composizione** tramite `<slot>` quando appropriato
+4. **Non importare dati** direttamente - passarli tramite props
+5. **Mantenere componenti piccoli** e focalizzati su una singola responsabilità
+6. **Utilizzare i18n** per testi nelle sezioni tramite prop `lang`
+7. **Documentare ogni nuovo componente** in questo README
 
 <div class={`card ${active ? 'active' : ''} ${className}`}>
-  <h3>{title}</h3>
-  {description && <p>{description}</p>}
-  <slot />
-</div>
+## Best Practices
 
-<style>
-  .card {
-    /* Component styles */
-  }
-</style>
-```
-
-## Test e Verifica
-
-Prima di committare nuovi componenti:
-
-1. Verifica che non ci siano errori TypeScript
-2. Testa il componente in almeno una pagina
-3. Controlla la responsività su diversi breakpoint
-4. Verifica l'accessibilità (contrast, ARIA labels)
-5. Assicurati che segua il design system del progetto
+1. **Sempre definire Props TypeScript** con `export interface Props`
+2. **Usare valori di default** per props opzionali
+3. **Preferire composizione** tramite `<slot>` quando appropriato
+4. **Non importare dati** direttamente - passarli tramite props
+5. **Mantenere componenti piccoli** e focalizzati su una singola responsabilità
+6. **Utilizzare i18n** per testi nelle sezioni tramite prop `lang`
+7. **Documentare ogni nuovo componente** in questo README
 
 ## Riuso e Composizione
 
@@ -307,6 +415,6 @@ I componenti sono progettati per essere composti insieme:
 ## Supporto
 
 Per domande o suggerimenti sui componenti, consulta:
-- `.github/copilot-instructions.md` per le linee guida complete
+- `.github/copilot-instructions.md` per le linee guida complete del progetto
 - Gli esempi nelle pagine esistenti in `src/pages/`
 - La documentazione di Astro: https://docs.astro.build

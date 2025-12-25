@@ -1,0 +1,39 @@
+---
+import TrailCard from './TrailCard.astro';
+import type { Language } from '../i18n';
+import { useTranslations } from '../i18n';
+import { trailStages } from '../data/trails';
+
+export interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="trails" class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-trail-green mb-4">{t('trails.title')}</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        {t('trails.subtitle')}
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {trailStages.map((stage) => (
+        <TrailCard 
+          id={stage.id}
+          title={stage.title}
+          subtitle={stage.subtitle}
+          distance={stage.distance}
+          duration={stage.duration}
+          difficulty={stage.difficulty}
+          slug={stage.slug}
+          {...(stage.images[0]?.url ? { image: stage.images[0].url } : {})}
+        />
+      ))}
+    </div>
+  </div>
+</section>

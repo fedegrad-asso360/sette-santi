@@ -4,7 +4,7 @@ import MapComponent from '../../components/MapComponent.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import StatsGrid from '../../components/StatsGrid.astro';
 import HighlightsList from '../../components/HighlightsList.astro';
-import StageNavigation from '../../components/StageNavigation.astro';
+import ItemNavigation from '../../components/ItemNavigation.astro';
 import { trailStages, getTrailStageBySlug, getAllTrailSlugs } from '../../data/trails';
 
 export function getStaticPaths() {
@@ -311,9 +311,10 @@ const detailedStats = [
   )}
 
   <!-- Navigation -->
-  <StageNavigation 
-    previousStage={previousStage}
-    nextStage={nextStage}
+  <ItemNavigation 
+    previous={previousStage ? { slug: previousStage.slug, title: previousStage.title } : null}
+    next={nextStage ? { slug: nextStage.slug, title: nextStage.title } : null}
+    basePath="/trails"
   />
   
   <!-- Back to all stages button -->

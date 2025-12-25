@@ -1,0 +1,50 @@
+---
+import SaintCard from './SaintCard.astro';
+import type { Language } from '../i18n';
+import { useTranslations } from '../i18n';
+import { saints } from '../data/saints';
+
+export interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="saints" class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-trail-brown mb-4">{t('saints.title')}</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        {t('saints.subtitle')}
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {saints.map((saint) => (
+        <SaintCard 
+          id={saint.id}
+          name={saint.name}
+          subtitle={saint.subtitle}
+          description={saint.description}
+          slug={saint.slug}
+          festivity={saint.festivity}
+          image={saint.images[0]}
+        />
+      ))}
+    </div>
+
+    <div class="text-center">
+      <a 
+        href="#saints" 
+        class="inline-flex items-center px-8 py-3 bg-trail-brown text-white rounded-lg hover:bg-trail-gold transition-colors text-lg font-medium"
+      >
+        {t('saints.cta')}
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
