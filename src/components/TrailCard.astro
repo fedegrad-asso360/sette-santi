@@ -7,27 +7,40 @@ export interface Props {
   duration: string;
   difficulty: 'Facile' | 'Intermedio' | 'Difficile';
   slug: string;
+  image?: string;
 }
 
-const { id, title, subtitle, distance, duration, difficulty, slug } = Astro.props;
+const { id, title, subtitle, distance, duration, difficulty, slug, image } = Astro.props;
 
 const difficultyColors = {
   'Facile': 'bg-green-100 text-green-800',
   'Intermedio': 'bg-yellow-100 text-yellow-800',
   'Difficile': 'bg-red-100 text-red-800'
 };
+
+const placeholderImage = `https://placehold.co/600x400/5a8a6b/ffffff?text=${encodeURIComponent(title)}`;
+// Usa sempre il placeholder finché non ci sono immagini reali
+const imageUrl = placeholderImage;
 ---
 
 <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-  <div class="h-48 bg-gradient-to-br from-trail-sky to-trail-green flex items-center justify-center">
-    <div class="text-center text-white">
-      <div class="text-6xl font-bold mb-2">{id}</div>
-      <div class="text-sm opacity-80">Tappa {id}</div>
+  <div class="h-48 bg-gray-200 relative overflow-hidden">
+    <img 
+      src={imageUrl} 
+      alt={title}
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-trail-green/80 to-transparent flex items-center justify-center">
+      <div class="text-center text-white">
+        <div class="text-6xl font-bold mb-2">{id}</div>
+        <div class="text-sm opacity-90">Tappa {id} di 5</div>
+      </div>
     </div>
   </div>
   <div class="p-6">
     <h3 class="text-xl font-bold text-trail-green mb-2">{title}</h3>
-    <p class="text-gray-600 mb-4 text-sm">{subtitle}</p>
+    <p class="text-trail-gold mb-3 text-sm font-medium">{subtitle}</p>
     <div class="flex justify-between items-center text-sm text-gray-500 mb-4">
       <span class="flex items-center">
         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,9 +61,12 @@ const difficultyColors = {
       </span>
       <a 
         href={`/percorsi/${slug}`} 
-        class="text-trail-green hover:text-trail-brown font-medium text-sm"
+        class="text-trail-green hover:text-trail-gold font-medium text-sm flex items-center transition-colors"
       >
-        Scopri di più →
+        Scopri di più
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
       </a>
     </div>
   </div>

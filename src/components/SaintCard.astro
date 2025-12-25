@@ -22,9 +22,9 @@ const imageUrl = image || placeholderImage;
       class="w-full h-full object-cover"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-trail-brown/80 to-transparent flex items-end">
-      <div class="p-4 text-white">
-        <div class="text-4xl font-bold">{id}</div>
+    <div class="absolute inset-0 bg-gradient-to-t from-trail-brown/80 to-transparent flex items-center justify-center">
+      <div class="text-center text-white">
+        <div class="text-6xl font-bold mb-2">{id}</div>
         <div class="text-sm opacity-90">Santo {id} di 7</div>
       </div>
     </div>
@@ -32,7 +32,6 @@ const imageUrl = image || placeholderImage;
   <div class="p-6">
     <h3 class="text-xl font-bold text-trail-brown mb-2">{name}</h3>
     <p class="text-trail-gold mb-3 text-sm font-medium">{subtitle}</p>
-    <p class="text-gray-600 mb-4 text-sm leading-relaxed">{description}</p>
     {festivity && (
       <div class="flex items-center text-sm text-gray-500 mb-4">
         <svg class="w-4 h-4 mr-2 text-trail-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,7 +45,7 @@ const imageUrl = image || placeholderImage;
         href={`/santi/${slug}`} 
         class="text-trail-brown hover:text-trail-gold font-medium text-sm flex items-center transition-colors"
       >
-        Scopri la storia
+        Scopri di più
         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
