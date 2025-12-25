@@ -4,7 +4,6 @@ import MapComponent from '../../components/MapComponent.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import StatsGrid from '../../components/StatsGrid.astro';
 import HighlightsList from '../../components/HighlightsList.astro';
-import AccommodationCard from '../../components/AccommodationCard.astro';
 import StageNavigation from '../../components/StageNavigation.astro';
 import { trailStages, getTrailStageBySlug, getAllTrailSlugs } from '../../data/trails';
 
@@ -30,8 +29,16 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
 const stageStats = [
 	{ value: stage.distance, label: 'Distanza' },
 	{ value: stage.duration, label: 'Durata' },
-	{ value: stage.elevation, label: 'Dislivello' },
-	{ value: stage.difficulty, label: 'Difficoltà' }
+	{ value: stage.difficulty, label: 'Difficoltà' },
+	{ value: stage.highestPoint, label: 'Quota Max' }
+];
+
+// Prepare detailed stats
+const detailedStats = [
+	{ value: stage.elevationGain, label: 'Dislivello Positivo' },
+	{ value: stage.elevationLoss, label: 'Dislivello Negativo' },
+	{ value: stage.lowestPoint, label: 'Quota Min' },
+	{ value: stage.technicalInfo.recommendedPeriod, label: 'Periodo Consigliato' }
 ];
 ---
 
@@ -45,7 +52,7 @@ const stageStats = [
     subtitle={stage.subtitle}
     badge={`Tappa ${stage.id} di ${trailStages.length}`}
   >
-    <StatsGrid stats={stageStats} columns={4} className="max-w-2xl mx-auto mt-8" />
+    <StatsGrid stats={stageStats} columns={4} className="max-w-3xl mx-auto mt-8" />
   </HeroSection>
 
   <!-- Description and Map -->
@@ -56,7 +63,13 @@ const stageStats = [
           <h2 class="text-3xl font-bold text-trail-green mb-6">Descrizione del Percorso</h2>
           <p class="text-lg text-gray-700 leading-relaxed mb-8">{stage.description}</p>
           
-          <HighlightsList highlights={stage.highlights} />
+          <HighlightsList highlights={stage.highlights} title="Punti Salienti" />
+          
+          <!-- Detailed Stats -->
+          <div class="mt-8">
+            <h3 class="text-xl font-bold text-trail-brown mb-4">Dati Tecnici Dettagliati</h3>
+            <StatsGrid stats={detailedStats} columns={2} />
+          </div>
         </div>
         
         <div>
@@ -73,9 +86,9 @@ const stageStats = [
               <a 
                 href={stage.gpxUrl} 
                 download 
-                class="inline-flex items-center px-4 py-2 bg-trail-green text-white rounded-lg hover:bg-trail-brown transition-colors"
+                class="inline-flex items-center px-6 py-3 bg-trail-green text-white rounded-lg hover:bg-trail-brown transition-colors shadow-md hover:shadow-lg"
               >
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Scarica traccia GPX
@@ -87,20 +100,210 @@ const stageStats = [
     </div>
   </section>
 
-  <!-- Accommodation -->
-  {stage.accommodation.length > 0 && (
+  <!-- Image Gallery -->
+  {stage.images.length > 0 && (
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-trail-green mb-8 text-center">Dove Alloggiare</h2>
+        <h2 class="text-3xl font-bold text-trail-green mb-8 text-center">Galleria Fotografica</h2>
         
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stage.images.map(image => (
+            <div class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow">
+              <img 
+                src={image.url} 
+                alt={image.alt}
+                class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p class="text-white text-sm font-medium">{image.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Technical Information -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-trail-green mb-8 text-center">Informazioni Tecniche</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Terrain -->
+        <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-trail-green">
+          <div class="flex items-center mb-4">
+            <svg class="w-6 h-6 text-trail-green mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-xl font-bold text-trail-brown">Tipologia Terreno</h3>
+          </div>
+          <ul class="space-y-2">
+            {stage.technicalInfo.terrain.map(terrain => (
+              <li class="text-gray-700 flex items-start">
+                <span class="text-trail-green mr-2">•</span>
+                <span>{terrain}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Signage -->
+        <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-trail-brown">
+          <div class="flex items-center mb-4">
+            <svg class="w-6 h-6 text-trail-brown mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+            <h3 class="text-xl font-bold text-trail-brown">Segnaletica</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">{stage.technicalInfo.signage}</p>
+        </div>
+
+        <!-- Water Points -->
+        <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-trail-sky">
+          <div class="flex items-center mb-4">
+            <svg class="w-6 h-6 text-trail-sky mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+            <h3 class="text-xl font-bold text-trail-brown">Punti Acqua</h3>
+          </div>
+          <ul class="space-y-2">
+            {stage.technicalInfo.waterPoints.map(point => (
+              <li class="text-gray-700 flex items-start">
+                <span class="text-trail-sky mr-2">💧</span>
+                <span class="text-sm">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Difficulty Info -->
+        <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-trail-gold md:col-span-2">
+          <div class="flex items-center mb-4">
+            <svg class="w-6 h-6 text-trail-gold mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <h3 class="text-xl font-bold text-trail-brown">Difficoltà e Preparazione</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed">{stage.technicalInfo.difficulty}</p>
+        </div>
+
+        <!-- Warnings -->
+        {stage.technicalInfo.warnings.length > 0 && (
+          <div class="bg-amber-50 rounded-lg shadow-md p-6 border-t-4 border-amber-500 lg:col-span-3 md:col-span-2">
+            <div class="flex items-center mb-4">
+              <svg class="w-6 h-6 text-amber-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <h3 class="text-xl font-bold text-amber-800">Avvertenze Importanti</h3>
+            </div>
+            <ul class="space-y-2">
+              {stage.technicalInfo.warnings.map(warning => (
+                <li class="text-amber-900 flex items-start">
+                  <span class="text-amber-600 mr-2 font-bold">⚠</span>
+                  <span>{warning}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Points of Interest -->
+  {stage.pointsOfInterest.length > 0 && (
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-trail-green mb-8 text-center">Punti di Interesse lungo il Percorso</h2>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="relative">
+            <!-- Vertical timeline line -->
+            <div class="absolute left-8 top-0 bottom-0 w-1 bg-trail-green hidden md:block"></div>
+            
+            <div class="space-y-8">
+              {stage.pointsOfInterest.map((poi, index) => (
+                <div class="relative pl-0 md:pl-20">
+                  <!-- Timeline marker -->
+                  <div class="absolute left-0 md:left-5 top-0 w-16 md:w-6 h-16 md:h-6 bg-trail-green rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                    <span class="text-sm md:text-xs">{index + 1}</span>
+                  </div>
+                  
+                  <div class="ml-20 md:ml-0 bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold text-trail-brown">{poi.name}</h3>
+                      <span class="bg-trail-green text-white px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap ml-4">
+                        {poi.distance}
+                      </span>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed">{poi.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Accommodation -->
+  {stage.accommodation.length > 0 && (
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-trail-green mb-4 text-center">Dove Alloggiare</h2>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+          Strutture consigliate per il pernottamento al termine di questa tappa
+        </p>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {stage.accommodation.map(acc => (
-            <AccommodationCard 
-              name={acc.name}
-              type={acc.type}
-              description={acc.description}
-              contact={acc.contact}
-            />
+            <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border-t-4 border-trail-brown">
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-xl font-bold text-trail-brown">{acc.name}</h3>
+                <span class="bg-trail-sky text-white px-3 py-1 rounded-full text-xs font-medium">
+                  {acc.type}
+                </span>
+              </div>
+              
+              <p class="text-gray-700 mb-4 leading-relaxed">{acc.description}</p>
+              
+              <div class="space-y-2 text-sm">
+                {acc.contact && (
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-2 text-trail-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <a href={`mailto:${acc.contact}`} class="hover:text-trail-green transition-colors">
+                      {acc.contact}
+                    </a>
+                  </div>
+                )}
+                
+                {acc.phone && (
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-2 text-trail-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <a href={`tel:${acc.phone}`} class="hover:text-trail-green transition-colors">
+                      {acc.phone}
+                    </a>
+                  </div>
+                )}
+                
+                {acc.website && (
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-2 text-trail-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                    <a href={`https://${acc.website}`} target="_blank" rel="noopener noreferrer" class="hover:text-trail-green transition-colors">
+                      Visita il sito
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </div>
