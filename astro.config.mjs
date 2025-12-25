@@ -8,5 +8,12 @@ export default defineConfig({
   output: 'static',
   adapter: node({
     mode: 'standalone'
-  })
+  }),
+  i18n: {
+    defaultLocale: 'it',
+    locales: ['it', 'en', 'de', 'fr', 'es'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  }
 });

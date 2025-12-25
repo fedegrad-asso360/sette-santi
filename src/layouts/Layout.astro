@@ -1,14 +1,20 @@
 ---
+import LanguageSelector from '../components/LanguageSelector.astro';
+import { getLangFromUrl, useTranslations } from '../i18n';
+
 export interface Props {
 	title: string;
 	description?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const { title, description = "Sentiero dei Sette Santi - Percorso escursionistico tra natura e spiritualità" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -35,13 +41,14 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 							decoding="async"
 						/>
 					</a>
-					<div class="hidden md:flex space-x-6">
-						<a href="/" class="hover:text-trail-gold transition-colors">Home</a>
-						<a href="/#trails" class="hover:text-trail-gold transition-colors">Le Tappe</a>
-						<a href="/#saints" class="hover:text-trail-gold transition-colors">I Santi</a>
-						<a href="/blog" class="hover:text-trail-gold transition-colors">Blog</a>
-						<a href="/community" class="hover:text-trail-gold transition-colors">Community</a>
-						<a href="/#booking" class="hover:text-trail-gold transition-colors">Prenota</a>
+					<div class="hidden md:flex items-center space-x-6">
+						<a href="/" class="hover:text-trail-gold transition-colors">{t('nav.home')}</a>
+						<a href="/#trails" class="hover:text-trail-gold transition-colors">{t('nav.trails')}</a>
+						<a href="/#saints" class="hover:text-trail-gold transition-colors">{t('nav.saints')}</a>
+						<a href="/blog" class="hover:text-trail-gold transition-colors">{t('nav.blog')}</a>
+						<a href="/community" class="hover:text-trail-gold transition-colors">{t('nav.community')}</a>
+						<a href="/#booking" class="hover:text-trail-gold transition-colors">{t('nav.booking')}</a>
+						<LanguageSelector />
 					</div>
 					<button id="mobile-menu-button" class="md:hidden text-white hover:text-trail-gold">
 						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,12 +59,15 @@ const { title, description = "Sentiero dei Sette Santi - Percorso escursionistic
 				<!-- Mobile Menu -->
 				<div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
 					<div class="flex flex-col space-y-3">
-						<a href="/" class="hover:text-trail-gold transition-colors py-2">Home</a>
-						<a href="/#trails" class="hover:text-trail-gold transition-colors py-2">Le Tappe</a>
-						<a href="/#saints" class="hover:text-trail-gold transition-colors py-2">I Santi</a>
-						<a href="/blog" class="hover:text-trail-gold transition-colors py-2">Blog</a>
-						<a href="/community" class="hover:text-trail-gold transition-colors py-2">Community</a>
-						<a href="/#booking" class="hover:text-trail-gold transition-colors py-2">Prenota</a>
+						<a href="/" class="hover:text-trail-gold transition-colors py-2">{t('nav.home')}</a>
+						<a href="/#trails" class="hover:text-trail-gold transition-colors py-2">{t('nav.trails')}</a>
+						<a href="/#saints" class="hover:text-trail-gold transition-colors py-2">{t('nav.saints')}</a>
+						<a href="/blog" class="hover:text-trail-gold transition-colors py-2">{t('nav.blog')}</a>
+						<a href="/community" class="hover:text-trail-gold transition-colors py-2">{t('nav.community')}</a>
+						<a href="/#booking" class="hover:text-trail-gold transition-colors py-2">{t('nav.booking')}</a>
+						<div class="pt-2 border-t border-trail-gold/30">
+							<LanguageSelector />
+						</div>
 					</div>
 				</div>
 			</nav>

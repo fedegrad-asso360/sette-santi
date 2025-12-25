@@ -8,9 +8,14 @@ import SaintCard from '../components/SaintCard.astro';
 import PricingCard from '../components/PricingCard.astro';
 import { trailStages } from '../data/trails';
 import { saints } from '../data/saints';
-import { getLangFromUrl, useTranslations } from '../i18n';
+import type { Language } from '../i18n';
+import { useTranslations } from '../i18n';
 
-const lang = getLangFromUrl(Astro.url);
+export interface Props {
+	lang: Language;
+}
+
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const stats = [
@@ -25,9 +30,9 @@ const pricingOptions = [
 		title: t('booking.individual.title'),
 		description: t('booking.individual.description'),
 		features: [
-			{ text: 'Mappe e tracce GPS' },
-			{ text: 'Lista alloggi consigliati' },
-			{ text: 'Supporto telefonico' }
+			{ text: 'GPS maps and tracks' },
+			{ text: 'Recommended accommodations' },
+			{ text: 'Phone support' }
 		],
 		price: t('booking.from') + ' €299',
 		highlighted: false
@@ -37,10 +42,10 @@ const pricingOptions = [
 		title: t('booking.group.title'),
 		description: t('booking.group.description'),
 		features: [
-			{ text: 'Guida esperta' },
-			{ text: 'Trasporto bagagli' },
-			{ text: 'Pasti inclusi' },
-			{ text: 'Alloggi prenotati' }
+			{ text: 'Expert guide' },
+			{ text: 'Luggage transport' },
+			{ text: 'Meals included' },
+			{ text: 'Accommodations booked' }
 		],
 		price: t('booking.from') + ' €799',
 		badge: t('booking.badge.popular'),
@@ -51,10 +56,10 @@ const pricingOptions = [
 		title: t('booking.premium.title'),
 		description: t('booking.premium.description'),
 		features: [
-			{ text: 'Alloggi di lusso' },
-			{ text: 'Chef personale' },
-			{ text: 'Trasferimenti privati' },
-			{ text: 'Guida spirituale' }
+			{ text: 'Luxury accommodations' },
+			{ text: 'Personal chef' },
+			{ text: 'Private transfers' },
+			{ text: 'Spiritual guide' }
 		],
 		price: t('booking.from') + ' €1,499',
 		highlighted: false
@@ -63,22 +68,20 @@ const pricingOptions = [
 ---
 
 <Layout title={t('hero.title')} description={t('hero.subtitle')}>
-	<!-- Hero Section with Carousel -->
 	<HeroCarousel />
-
-	<!-- Intro Section -->
+	
 	<section class="py-16 bg-white">
 		<div class="container mx-auto px-4">
 			<div class="grid md:grid-cols-2 gap-12 items-center">
 				<div>
-				<h2 class="text-4xl font-bold text-trail-green mb-6">
+					<h2 class="text-4xl font-bold text-trail-green mb-6">
 						{t('intro.title')}
 					</h2>
 					<p class="text-lg text-gray-700 mb-6 leading-relaxed">
 						{t('intro.description1')}
-				</p>
-				<p class="text-lg text-gray-700 mb-8 leading-relaxed">
-					{t('intro.description2')}
+					</p>
+					<p class="text-lg text-gray-700 mb-8 leading-relaxed">
+						{t('intro.description2')}
 					</p>
 					<StatsGrid stats={stats} columns={3} />
 				</div>
@@ -88,8 +91,7 @@ const pricingOptions = [
 			</div>
 		</div>
 	</section>
-
-	<!-- Tappe Section -->
+	
 	<section id="trails" class="py-16 bg-gray-50">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
@@ -108,13 +110,14 @@ const pricingOptions = [
 						distance={stage.distance}
 						duration={stage.duration}
 						difficulty={stage.difficulty}
-						slug={stage.slug}					image={stage.images[0]?.url}					/>
+						slug={stage.slug}
+						image={stage.images[0]?.url}
+					/>
 				))}
 			</div>
 		</div>
 	</section>
-
-	<!-- Sette Santi Section -->
+	
 	<section id="saints" class="py-16 bg-white">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
@@ -151,8 +154,7 @@ const pricingOptions = [
 			</div>
 		</div>
 	</section>
-
-	<!-- Prenota Section -->
+	
 	<section id="booking" class="py-16 bg-trail-green text-white">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">

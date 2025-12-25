@@ -1,7 +1,12 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n';
+
 export interface Props {
   images?: string[];
 }
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const { images = [
   'https://placehold.co/1920x800/5a8a6b/ffffff?text=Sentiero+dei+Sette+Santi',
@@ -17,7 +22,7 @@ const { images = [
       <div class="carousel-slide min-w-full h-full relative">
         <img 
           src={image} 
-          alt={`Immagine sentiero ${index + 1}`}
+          alt={`${t('hero.title')} ${index + 1}`}
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
@@ -28,18 +33,17 @@ const { images = [
   <!-- Content Overlay -->
   <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4 z-10">
     <h1 class="text-5xl md:text-6xl font-bold mb-6 text-trail-gold drop-shadow-lg">
-      Sentiero dei Sette Santi
+      {t('hero.title')}
     </h1>
     <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-      Un cammino spirituale attraverso l'Italia che unisce fede, natura e cultura, 
-      seguendo le orme di sette grandi santi della tradizione cristiana.
+      {t('hero.subtitle')}
     </p>
     <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
       <a href="#trails" class="bg-trail-gold text-trail-brown px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors shadow-lg">
-        Scopri le Tappe
+        {t('hero.cta.discover')}
       </a>
       <a href="#booking" class="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-trail-green transition-colors shadow-lg">
-        Prenota il Viaggio
+        {t('hero.cta.book')}
       </a>
     </div>
   </div>
@@ -47,7 +51,7 @@ const { images = [
   <!-- Navigation Buttons -->
   <button 
     class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full backdrop-blur-sm transition-all z-20"
-    aria-label="Immagine precedente"
+    aria-label={t('common.readMore')}
   >
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />

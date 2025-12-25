@@ -1,0 +1,86 @@
+---
+import { languages, type Language, getLangFromUrl } from '../i18n';
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname;
+
+// Remove language prefix from path if present
+function getPathWithoutLang(path: string): string {
+  const langPattern = /^\/(en|de|fr|es)\//;
+  return path.replace(langPattern, '/');
+}
+
+// Generate new path with language prefix
+function getLocalizedPath(path: string, lang: Language): string {
+  const cleanPath = getPathWithoutLang(path);
+  return lang === 'it' ? cleanPath : `/${lang}${cleanPath}`;
+}
+
+const basePath = getPathWithoutLang(currentPath);
+---
+
+<div class="relative inline-block text-left">
+  <button
+    id="language-menu-button"
+    type="button"
+    class="inline-flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white hover:text-trail-gold transition-colors"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+    </svg>
+    <span class="uppercase">{currentLang}</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <div
+    id="language-menu"
+    class="hidden absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="language-menu-button"
+  >
+    <div class="py-1" role="none">
+      {Object.entries(languages).map(([lang, name]) => (
+        <a
+          href={getLocalizedPath(basePath, lang as Language)}
+          class={`block px-4 py-2 text-sm hover:bg-gray-100 ${
+            lang === currentLang ? 'bg-trail-green/10 text-trail-green font-semibold' : 'text-gray-700'
+          }`}
+          role="menuitem"
+        >
+          {name}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle language menu
+  const button = document.getElementById('language-menu-button');
+  const menu = document.getElementById('language-menu');
+
+  button?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    if (isHidden) {
+      menu?.classList.remove('hidden');
+      button?.setAttribute('aria-expanded', 'true');
+    } else {
+      menu?.classList.add('hidden');
+      button?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (!button?.contains(target) && !menu?.contains(target)) {
+      menu?.classList.add('hidden');
+      button?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
