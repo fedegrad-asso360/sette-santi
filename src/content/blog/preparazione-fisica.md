@@ -1,6 +1,6 @@
 ---
 title: "Preparazione Fisica per il Sentiero"
-description: "Consigli pratici per prepararsi fisicamente al cammino e affrontare al meglio le sette tappe del percorso."
+description: "Consigli pratici per prepararsi fisicamente al cammino e affrontare al meglio le cinque tappe del percorso."
 date: 2024-02-10
 author: "Marco Rossi"
 tags: ["preparazione", "consigli", "fitness"]

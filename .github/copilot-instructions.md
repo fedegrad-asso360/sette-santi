@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-This is a website for "Sentiero dei Sette Santi" (Path of the Seven Saints), a spiritual trekking/pilgrimage route through Italy. The site provides comprehensive information about the trail, booking options, and aims to build a community around this spiritual journey.
+This is a website for "Sentiero dei Sette Santi" (Path of the Seven Saints), a spiritual trekking/pilgrimage route through the Marche region in Italy. The site provides comprehensive information about the 5-stage circular trail, booking options, and aims to build a community around this spiritual journey through the Sibillini Mountains.
 
 ### Project Goals
-1. **Showcase the Trekking Route**: Present the 7 stages with detailed information, maps, and historical/cultural context
+1. **Showcase the Trekking Route**: Present the 5 stages with detailed information, maps, and historical/cultural context
 2. **Enable Bookings**: Allow users to reserve organized tours (individual, group, premium experiences)
 3. **Content Publishing**: Blog section for news, events, and trekking-related content
 4. **Community Building**: User engagement through comments, reviews, and social features
@@ -168,7 +168,7 @@ Hero header section with gradient background. Used at the top of most pages.
 <HeroSection 
   title="Community"
   subtitle="Condividi le tue esperienze"
-  badge="Tappa 1 di 7"
+  badge="Tappa 1 di 5"
 >
   <StatsGrid stats={stats} columns={3} />
 </HeroSection>

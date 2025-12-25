@@ -23,226 +23,161 @@ export interface TrailStage {
 export const trailStages: TrailStage[] = [
   {
     id: 1,
-    slug: 'san-francesco-assisi',
-    title: 'San Francesco - Assisi',
-    subtitle: 'Il punto di partenza spirituale',
-    description: 'Iniziamo il nostro cammino dalla Basilica di San Francesco ad Assisi, cuore della spiritualità francescana. Un percorso che attraversa i luoghi più significativi della vita del Santo.',
-    distance: '12 km',
-    duration: '4-5 ore',
-    difficulty: 'Facile',
-    elevation: '+200m / -150m',
-    highlights: [
-      'Basilica di San Francesco',
-      'Centro storico di Assisi',
-      'Eremo delle Carceri',
-      'Panorama sulla Valle Umbra'
-    ],
-    coordinates: [43.0719, 12.6186],
-    gpxUrl: '/gpx/tappa-1-san-francesco.gpx',
-    images: ['/images/tappa1-1.jpg', '/images/tappa1-2.jpg'],
-    accommodation: [
-      {
-        name: 'Hotel Subasio',
-        type: 'Albergo',
-        description: 'Hotel storico nel centro di Assisi con vista panoramica',
-        contact: 'info@hotelsubasio.com'
-      },
-      {
-        name: 'Casa San Gabriele dell\'Addolorata',
-        type: 'Rifugio',
-        description: 'Struttura religiosa con camere semplici e accoglienza francescana'
-      }
-    ]
-  },
-  {
-    id: 2,
-    slug: 'santa-chiara-spello',
-    title: 'Santa Chiara - Spello',
-    subtitle: 'Dalla contemplazione ai fiori',
-    description: 'Dal Santuario di Santa Chiara proseguiamo verso Spello, borgo medievale famoso per le sue infiorate e i vicoli fioriti che ci accompagnano in questo tratto del percorso.',
+    slug: 'san-ruffino-rubbiano',
+    title: 'Da San Ruffino a Rubbiano',
+    subtitle: 'L\'inizio del cammino spirituale',
+    description: 'Iniziamo il nostro cammino da San Ruffino, attraversando paesaggi collinari marchigiani fino a raggiungere Rubbiano. Un percorso che unisce natura e spiritualità.',
     distance: '15 km',
     duration: '5-6 ore',
     difficulty: 'Intermedio',
     elevation: '+350m / -280m',
     highlights: [
-      'Santuario di Santa Chiara',
-      'Borgo medievale di Spello',
-      'Chiesa di Santa Maria Maggiore',
-      'Panorami sulla Valle di Assisi'
+      'Chiesa di San Ruffino',
+      'Panorami sulle colline marchigiane',
+      'Borghi medievali lungo il percorso',
+      'Sentieri naturalistici'
     ],
-    coordinates: [42.9864, 12.6700],
-    gpxUrl: '/gpx/tappa-2-santa-chiara.gpx',
+    coordinates: [43.0719, 13.2186],
+    gpxUrl: '/gpx/tappa-1-san-ruffino-rubbiano.gpx',
+    images: ['/images/tappa1-1.jpg', '/images/tappa1-2.jpg'],
+    accommodation: [
+      {
+        name: 'Locanda di Rubbiano',
+        type: 'Albergo',
+        description: 'Struttura accogliente nel centro di Rubbiano'
+      },
+      {
+        name: 'Agriturismo Le Colline',
+        type: 'Agriturismo',
+        description: 'Immerso nella natura con prodotti tipici locali'
+      }
+    ]
+  },
+  {
+    id: 2,
+    slug: 'rubbiano-san-leonardo',
+    title: 'Da Rubbiano a San Leonardo (a/r)',
+    subtitle: 'Un\'escursione contemplativa',
+    description: 'Da Rubbiano ci dirigiamo verso San Leonardo in un percorso di andata e ritorno. Un\'esperienza di riflessione e immersione nella natura dei Monti Sibillini.',
+    distance: '12 km (a/r)',
+    duration: '4-5 ore',
+    difficulty: 'Facile',
+    elevation: '+200m / -200m',
+    highlights: [
+      'Santuario di San Leonardo',
+      'Paesaggi dei Monti Sibillini',
+      'Flora e fauna locale',
+      'Luoghi di meditazione'
+    ],
+    coordinates: [42.9864, 13.2700],
+    gpxUrl: '/gpx/tappa-2-rubbiano-san-leonardo.gpx',
     images: ['/images/tappa2-1.jpg', '/images/tappa2-2.jpg'],
     accommodation: [
       {
-        name: 'Palazzo Bocci',
+        name: 'Locanda di Rubbiano',
         type: 'Albergo',
-        description: 'Elegante palazzo del XIV secolo nel cuore di Spello'
+        description: 'Ritorno alla base di Rubbiano'
       },
       {
-        name: 'La Bastiglia',
+        name: 'B&B Il Pellegrino',
         type: 'B&B',
-        description: 'Charming B&B con vista panoramica e giardino'
+        description: 'Camera semplice e accogliente'
       }
     ]
   },
   {
     id: 3,
-    slug: 'san-benedetto-norcia',
-    title: 'San Benedetto - Norcia',
-    subtitle: 'Sulle orme del santo patrono d\'Europa',
-    description: 'Raggiungiamo Norcia, città natale di San Benedetto, attraversando paesaggi montani e luoghi di profonda spiritualità benedettina.',
+    slug: 'rubbiano-ambro',
+    title: 'Da Rubbiano al Santuario dell\'Ambro',
+    subtitle: 'Verso il cuore spirituale del percorso',
+    description: 'Lasciamo Rubbiano per raggiungere il suggestivo Santuario dell\'Ambro, immerso nelle montagne. Una tappa di grande significato spirituale e naturalistica.',
     distance: '18 km',
     duration: '6-7 ore',
     difficulty: 'Difficile',
     elevation: '+480m / -320m',
     highlights: [
-      'Basilica di San Benedetto',
-      'Centro storico di Norcia',
-      'Prodotti tipici umbri',
-      'Paesaggi montani dei Sibillini'
+      'Santuario della Madonna dell\'Ambro',
+      'Gola dell\'Ambro',
+      'Eremo di San Michele',
+      'Cascate e sentieri montani'
     ],
-    coordinates: [42.7936, 13.0947],
-    gpxUrl: '/gpx/tappa-3-san-benedetto.gpx',
+    coordinates: [42.9936, 13.2947],
+    gpxUrl: '/gpx/tappa-3-rubbiano-ambro.gpx',
     images: ['/images/tappa3-1.jpg', '/images/tappa3-2.jpg'],
     accommodation: [
       {
-        name: 'Grotta Azzurra',
-        type: 'Albergo',
-        description: 'Hotel tradizionale nel centro di Norcia con cucina tipica'
+        name: 'Foresteria del Santuario',
+        type: 'Rifugio',
+        description: 'Accoglienza semplice presso il santuario'
       },
       {
-        name: 'Casale nel Parco dei Sibillini',
-        type: 'Agriturismo',
-        description: 'Agriturismo immerso nella natura con produzione biologica'
+        name: 'Rifugio Monti Sibillini',
+        type: 'Rifugio',
+        description: 'Rifugio di montagna con atmosfera autentica'
       }
     ]
   },
   {
     id: 4,
-    slug: 'sant-antonio-padova',
-    title: 'Sant\'Antonio - Padova',
-    subtitle: 'Il santo dei miracoli',
-    description: 'Proseguiamo verso nord per raggiungere Padova e la magnifica Basilica di Sant\'Antonio, luogo di pellegrinaggio mondiale e centro di devozione millenaria.',
-    distance: '20 km',
-    duration: '7-8 ore',
+    slug: 'ambro-amandola',
+    title: 'Dal Santuario dell\'Ambro ad Amandola',
+    subtitle: 'Dalla montagna al borgo',
+    description: 'Scendiamo dal santuario verso Amandola, caratteristico borgo marchigiano. Un percorso che ci riporta alla civiltà attraverso paesaggi mozzafiato.',
+    distance: '16 km',
+    duration: '5-6 ore',
     difficulty: 'Intermedio',
-    elevation: '+280m / -380m',
+    elevation: '+280m / -450m',
     highlights: [
-      'Basilica di Sant\'Antonio',
-      'Cappella degli Scrovegni',
-      'Orto Botanico di Padova',
-      'Centro storico universitario'
+      'Centro storico di Amandola',
+      'Chiesa di Sant\'Agostino',
+      'Musei locali',
+      'Prodotti tipici marchigiani'
     ],
-    coordinates: [45.4064, 11.8768],
-    gpxUrl: '/gpx/tappa-4-sant-antonio.gpx',
+    coordinates: [42.9764, 13.3568],
+    gpxUrl: '/gpx/tappa-4-ambro-amandola.gpx',
     images: ['/images/tappa4-1.jpg', '/images/tappa4-2.jpg'],
     accommodation: [
       {
-        name: 'Casa del Pellegrino',
+        name: 'Hotel Paradiso',
         type: 'Albergo',
-        description: 'Hotel gestito dai Frati Minori, adiacente alla Basilica'
+        description: 'Hotel confortevole nel centro di Amandola'
       },
       {
-        name: 'B&B Al Santo',
+        name: 'B&B Le Terrazze',
         type: 'B&B',
-        description: 'Accogliente B&B a pochi passi dalla Basilica del Santo'
+        description: 'B&B con vista panoramica sulle montagne'
       }
     ]
   },
   {
     id: 5,
-    slug: 'san-giuseppe-milano',
-    title: 'San Giuseppe - Milano',
-    subtitle: 'Il patrono dei lavoratori',
-    description: 'Raggiungiamo Milano e la Chiesa di San Giuseppe, simbolo della devozione del santo patrono dei lavoratori nel cuore economico d\'Italia.',
-    distance: '16 km',
-    duration: '5-6 ore',
-    difficulty: 'Facile',
-    elevation: '+120m / -180m',
+    slug: 'amandola-san-ruffino',
+    title: 'Da Amandola a San Ruffino',
+    subtitle: 'Il ritorno alle origini',
+    description: 'Chiudiamo il cerchio del nostro cammino tornando a San Ruffino, il punto di partenza. Un percorso conclusivo che porta con sé le esperienze vissute.',
+    distance: '20 km',
+    duration: '6-7 ore',
+    difficulty: 'Intermedio',
+    elevation: '+380m / -420m',
     highlights: [
-      'Chiesa di San Giuseppe',
-      'Duomo di Milano',
-      'Navigli milanesi',
-      'Quartieri storici della città'
+      'Ritorno a San Ruffino',
+      'Panorami conclusivi',
+      'Riflessione sul cammino percorso',
+      'Celebrazione finale'
     ],
-    coordinates: [45.4642, 9.1900],
-    gpxUrl: '/gpx/tappa-5-san-giuseppe.gpx',
+    coordinates: [43.0719, 13.2186],
+    gpxUrl: '/gpx/tappa-5-amandola-san-ruffino.gpx',
     images: ['/images/tappa5-1.jpg', '/images/tappa5-2.jpg'],
     accommodation: [
       {
-        name: 'Hotel San Giuseppe',
+        name: 'Hotel San Ruffino',
         type: 'Albergo',
-        description: 'Hotel tradizionale nel centro di Milano'
+        description: 'Hotel tradizionale per concludere il cammino'
       },
       {
-        name: 'Ostello della Gioventù',
+        name: 'Casa del Pellegrino',
         type: 'Rifugio',
-        description: 'Sistemazione economica per pellegrini e viaggiatori'
-      }
-    ]
-  },
-  {
-    id: 6,
-    slug: 'san-carlo-borromeo-arona',
-    title: 'San Carlo Borromeo - Arona',
-    subtitle: 'Il riformatore della Chiesa',
-    description: 'Ci dirigiamo verso Arona, città natale di San Carlo Borromeo, dove si erge la maestosa statua del santo con vista sul Lago Maggiore.',
-    distance: '14 km',
-    duration: '4-5 ore',
-    difficulty: 'Facile',
-    elevation: '+180m / -120m',
-    highlights: [
-      'Sancarlone di Arona',
-      'Casa natale di San Carlo',
-      'Lungolago di Arona',
-      'Vista sul Lago Maggiore'
-    ],
-    coordinates: [45.7573, 8.5506],
-    gpxUrl: '/gpx/tappa-6-san-carlo.gpx',
-    images: ['/images/tappa6-1.jpg', '/images/tappa6-2.jpg'],
-    accommodation: [
-      {
-        name: 'Hotel Atlantic',
-        type: 'Albergo',
-        description: 'Hotel moderno con vista lago e servizi completi'
-      },
-      {
-        name: 'Villa Giulia',
-        type: 'B&B',
-        description: 'Elegante villa storica con giardino panoramico'
-      }
-    ]
-  },
-  {
-    id: 7,
-    slug: 'santa-rita-torino',
-    title: 'Santa Rita - Torino',
-    subtitle: 'La santa delle cause impossibili',
-    description: 'Concludiamo il nostro cammino a Torino, nella Chiesa di Santa Rita, dove si venera la santa delle cause impossibili, meta finale di questo percorso di fede e natura.',
-    distance: '22 km',
-    duration: '7-8 ore',
-    difficulty: 'Intermedio',
-    elevation: '+340m / -280m',
-    highlights: [
-      'Chiesa di Santa Rita',
-      'Duomo di Torino (Sindone)',
-      'Mole Antonelliana',
-      'Centro storico sabaudo'
-    ],
-    coordinates: [45.0703, 7.6869],
-    gpxUrl: '/gpx/tappa-7-santa-rita.gpx',
-    images: ['/images/tappa7-1.jpg', '/images/tappa7-2.jpg'],
-    accommodation: [
-      {
-        name: 'Grand Hotel Sitea',
-        type: 'Albergo',
-        description: 'Hotel di lusso nel cuore elegante di Torino'
-      },
-      {
-        name: 'Casa per Ferie Santa Rita',
-        type: 'Rifugio',
-        description: 'Struttura religiosa con camere semplici e accoglienza calorosa'
+        description: 'Struttura religiosa per l\'accoglienza finale'
       }
     ]
   }

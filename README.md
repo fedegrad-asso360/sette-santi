@@ -4,13 +4,13 @@ Un sito web moderno per il percorso di trekking/pellegrinaggio spirituale attrav
 
 ## 📖 Descrizione
 
-Il Sentiero dei Sette Santi è un cammino spirituale e naturalistico che attraversa l'Italia centrale e settentrionale, collegando i luoghi dedicati a sette santi significativi della tradizione cristiana. Questo progetto web fornisce tutte le informazioni necessarie per pianificare e vivere questa esperienza unica.
+Il Sentiero dei Sette Santi è un cammino spirituale e naturalistico che attraversa le Marche, collegando luoghi sacri in un percorso circolare di 5 tappe. Questo progetto web fornisce tutte le informazioni necessarie per pianificare e vivere questa esperienza unica tra i Monti Sibillini.
 
 ## ✨ Caratteristiche
 
 ### Implementate
 - **Homepage Showcase**: Presentazione del percorso con hero section e statistiche
-- **7 Tappe Dettagliate**: Ogni tappa dedicata a un santo con:
+- **5 Tappe Dettagliate**: Percorso circolare attraverso luoghi sacri delle Marche con:
   - Informazioni tecniche (distanza, durata, dislivello, difficoltà)
   - Descrizione del percorso e punti di interesse
   - Mappe interattive (placeholder)
@@ -77,7 +77,7 @@ sette-santi/
 │   ├── components/      # Componenti Astro riutilizzabili
 │   │   └── MapComponent.astro
 │   ├── data/           # Dati strutturati
-│   │   └── trails.ts   # Dati delle 7 tappe
+│   │   └── trails.ts   # Dati delle 5 tappe
 │   ├── layouts/        # Layout di pagina
 │   │   └── Layout.astro
 │   ├── pages/          # Route del sito
@@ -100,15 +100,13 @@ Il sito utilizza una palette di colori naturali e armoniosa:
 - **trail-gold** (`#d4af37`) - Oro per accenti spirituali e momenti speciali
 - **trail-sky** (`#87a8c3`) - Azzurro sereno per apertura e speranza
 
-## 🗺️ Le Sette Tappe
+## 🗺️ Le Cinque Tappe
 
-1. **San Francesco - Assisi**: Il punto di partenza spirituale (12 km, Facile)
-2. **Santa Chiara - Spello**: Dalla contemplazione ai fiori (15 km, Intermedio)
-3. **San Benedetto - Norcia**: Sulle orme del santo patrono d'Europa (18 km, Difficile)
-4. **Sant'Antonio - Padova**: Il santo dei miracoli (20 km, Intermedio)
-5. **San Giuseppe - Milano**: Il patrono dei lavoratori (16 km, Facile)
-6. **San Carlo Borromeo - Arona**: Il riformatore della Chiesa (14 km, Facile)
-7. **Santa Rita - Torino**: La santa delle cause impossibili (22 km, Intermedio)
+1. **San Ruffino - Rubbiano**: L'inizio del cammino spirituale (15 km, Intermedio)
+2. **Rubbiano - San Leonardo (a/r)**: Un'escursione contemplativa (12 km a/r, Facile)
+3. **Rubbiano - Santuario dell'Ambro**: Verso il cuore spirituale del percorso (18 km, Difficile)
+4. **Santuario dell'Ambro - Amandola**: Dalla montagna al borgo (16 km, Intermedio)
+5. **Amandola - San Ruffino**: Il ritorno alle origini (20 km, Intermedio)
 
 ## 🔧 Comandi Disponibili
 
@@ -133,7 +131,7 @@ Questo progetto è aperto a contributi! Se desideri contribuire:
 
 ### Fase 1 - Contenuti Base (Completata)
 - [x] Homepage con presentazione
-- [x] Struttura delle 7 tappe
+- [x] Struttura delle 5 tappe
 - [x] Sistema di navigazione
 - [x] Sezione prenotazioni
 

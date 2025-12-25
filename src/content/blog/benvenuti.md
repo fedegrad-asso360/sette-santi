@@ -13,15 +13,17 @@ Siamo lieti di presentare il nuovo sito web dedicato al **Sentiero dei Sette San
 
 ## Un Cammino di Fede e Natura
 
-Il Sentiero dei Sette Santi non è solo un percorso escursionistico, ma un viaggio interiore che tocca i luoghi più significativi della spiritualità italiana. Attraverso sette tappe, percorreremo i santuari e i luoghi dedicati a:
+Il Sentiero dei Sette Santi non è solo un percorso escursionistico, ma un viaggio interiore che tocca i luoghi più significativi della spiritualità marchigiana. Attraverso cinque tappe, percorreremo un cammino circolare tra i Monti Sibillini, da San Ruffino al Santuario dell'Ambro, passando per luoghi sacri e paesaggi mozzafiato.
 
-1. San Francesco d'Assisi
-2. Santa Chiara
-3. San Benedetto da Norcia
-4. Sant'Antonio da Padova
-5. San Giuseppe
-6. San Carlo Borromeo
-7. Santa Rita da Cascia
+## Il Percorso
+
+Un itinerario ad anello di circa 81 km che unisce:
+
+- San Ruffino, punto di partenza e arrivo
+- Rubbiano, base per le escursioni
+- San Leonardo, luogo di contemplazione
+- Santuario dell'Ambro, cuore spirituale del percorso
+- Amandola, borgo marchigiano ricco di storia
 
 ## Cosa Troverete su Questo Sito
 
