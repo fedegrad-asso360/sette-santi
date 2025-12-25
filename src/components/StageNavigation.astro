@@ -18,7 +18,7 @@ const { previousStage, nextStage } = Astro.props;
       <div class="text-center md:text-left">
         {previousStage ? (
           <a 
-            href={`/percorsi/${previousStage.slug}`}
+            href={`/trails/${previousStage.slug}`}
             class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ const { previousStage, nextStage } = Astro.props;
       
       <div class="text-center">
         <a 
-          href="/#tappe"
+          href="/#trails"
           class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
         >
           Tutte le Tappe
@@ -49,7 +49,7 @@ const { previousStage, nextStage } = Astro.props;
       <div class="text-center md:text-right">
         {nextStage ? (
           <a 
-            href={`/percorsi/${nextStage.slug}`}
+            href={`/trails/${nextStage.slug}`}
             class="inline-flex items-center text-trail-gold hover:text-white transition-colors"
           >
             <div>

@@ -83,14 +83,33 @@ export interface TrailStage {
 - Keep data separate from presentation logic
 - Follow the existing pattern in `src/data/trails.ts`
 
+### Internationalization (i18n)
+- Multi-language support configuration in `src/i18n/index.ts`
+- Supported languages: Italian (it - default), English (en), German (de), French (fr), Spanish (es)
+- Use `useTranslations(lang)` helper to get translated strings
+- Content language: Italian by default
+- URI structure: English (e.g., `/trails`, `/saints`)
+- Future: language-specific routes (e.g., `/en/trails`, `/de/trails`)
+
+```typescript
+import { useTranslations, getLangFromUrl } from '../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const title = t('hero.title');
+```
+
 ## Architecture Guidelines
 
 ### Page Structure
 ```
 src/pages/
   ├── index.astro              # Homepage
-  ├── percorsi/                # Trail routes
+  ├── trails/                  # Trail routes (English URI)
   │   └── [slug].astro        # Dynamic route for each stage
+  ├── saints/                  # Saints section (English URI)
+  │   ├── index.astro         # Redirects to homepage saints section
+  │   └── [slug].astro        # Individual saint pages
   ├── blog/                    # Blog section
   │   ├── index.astro         # Blog listing
   │   └── [slug].astro        # Individual blog posts
@@ -141,8 +160,12 @@ src/components/
 ```
 src/data/
   ├── trails.ts                # Trail stages data
+  ├── saints.ts                # Saints data
   ├── blog-posts.ts            # Blog content metadata (if needed)
   └── site-config.ts           # Site-wide configuration (if needed)
+
+src/i18n/
+  └── index.ts                 # i18n configuration and translations
 ```
 
 **Data Best Practices:**

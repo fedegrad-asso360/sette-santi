@@ -95,7 +95,7 @@ Ogni tappa ora include:
 - Tappa più lunga (20km)
 - Atmosfera di ritorno e celebrazione
 
-### 3. Pagina Tappa Completamente Rinnovata (`src/pages/percorsi/[slug].astro`)
+### 3. Pagina Tappa Completamente Rinnovata (`src/pages/trails/[slug].astro`)
 
 #### Sezioni Implementate:
 
@@ -231,7 +231,7 @@ Cards con icone per:
 ## File Modificati
 
 1. `src/data/trails.ts` - Interfaccia e dati espansi
-2. `src/pages/percorsi/[slug].astro` - Layout tappa rinnovato
+2. `src/pages/trails/[slug].astro` - Layout tappa rinnovato
 3. `public/images/README-IMAGES.md` - Documentazione immagini (nuovo)
 4. `public/gpx/README-GPX.md` - Documentazione GPX (nuovo)
 
