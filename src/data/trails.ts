@@ -14,6 +14,7 @@ export interface TrailStage {
   lowestPoint: string;
   highlights: string[];
   coordinates: [number, number];
+  startPoint: string;
   gpxUrl?: string;
   images: {
     url: string;
@@ -66,6 +67,7 @@ export const trailStages: TrailStage[] = [
       'Vista sui Monti Sibillini'
     ],
     coordinates: [43.0719, 13.2186],
+    startPoint: 'San Ruffino (Amandola)',
     gpxUrl: '/gpx/tappa-1-san-ruffino-rubbiano.gpx',
     images: [
       {
@@ -179,6 +181,7 @@ export const trailStages: TrailStage[] = [
       'Boschi di faggi secolari'
     ],
     coordinates: [42.9864, 13.2700],
+    startPoint: 'Rubbiano (Montefortino)',
     gpxUrl: '/gpx/tappa-2-rubbiano-san-leonardo.gpx',
     images: [
       {
@@ -293,6 +296,7 @@ export const trailStages: TrailStage[] = [
       'Flora endemica dei Sibillini'
     ],
     coordinates: [42.9936, 13.2947],
+    startPoint: 'Rubbiano (Montefortino)',
     gpxUrl: '/gpx/tappa-3-rubbiano-ambro.gpx',
     images: [
       {
@@ -428,6 +432,7 @@ export const trailStages: TrailStage[] = [
       'Prodotti tipici marchigiani (salumi, formaggi, tartufi)'
     ],
     coordinates: [42.9764, 13.3568],
+    startPoint: 'Madonna Ambro (Montefortino)',
     gpxUrl: '/gpx/tappa-4-ambro-amandola.gpx',
     images: [
       {
@@ -568,6 +573,7 @@ export const trailStages: TrailStage[] = [
       'Riflessione sul cammino percorso'
     ],
     coordinates: [43.0719, 13.2186],
+    startPoint: 'Amandola',
     gpxUrl: '/gpx/tappa-5-amandola-san-ruffino.gpx',
     images: [
       {
@@ -692,6 +698,27 @@ export const trailStages: TrailStage[] = [
 
 export function getTrailStageBySlug(slug: string): TrailStage | undefined {
   return trailStages.find(stage => stage.slug === slug);
+}
+
+// Get unique starting points with their coordinates for the overview map
+export interface StartPoint {
+  name: string;
+  coordinates: [number, number];
+}
+
+export function getUniqueStartPoints(): StartPoint[] {
+  const pointsMap = new Map<string, [number, number]>();
+  
+  trailStages.forEach(stage => {
+    if (stage.startPoint && !pointsMap.has(stage.startPoint)) {
+      pointsMap.set(stage.startPoint, stage.coordinates);
+    }
+  });
+  
+  return Array.from(pointsMap.entries()).map(([name, coordinates]) => ({
+    name,
+    coordinates
+  }));
 }
 
 export function getAllTrailSlugs(): string[] {

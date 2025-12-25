@@ -55,6 +55,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.totalKm': 'km Totali',
     'stats.days': 'Giorni',
     
+    'whereWeAre.title': 'Dove Siamo',
+    'whereWeAre.description': 'Il percorso si snoda attraverso i Monti Sibillini nelle Marche. Clicca sui marker per vedere le indicazioni stradali verso i punti di partenza delle tappe.',
+    'whereWeAre.tip': 'Suggerimento',
+    'whereWeAre.tipText': 'Clicca su un marker nella mappa per ottenere le indicazioni stradali dalla tua posizione.',
+    
     'trails.title': 'Le Cinque Tappe',
     'trails.subtitle': 'Un percorso circolare attraverso i luoghi sacri delle Marche, tra spiritualità, natura e cultura locale.',
     
@@ -98,6 +103,26 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.saints': 'Saints',
     'nav.blog': 'Blog',
     'nav.community': 'Community',
+    'nav.booking': 'Book',
+    
+    // Homepage
+    'hero.title': 'Path of the Seven Saints',
+    'hero.subtitle': 'A spiritual journey through Italy that combines faith, nature and culture, following in the footsteps of seven great saints of the Christian tradition.',
+    'hero.cta.discover': 'Discover the Stages',
+    'hero.cta.book': 'Book Your Journey',
+    
+    'intro.title': 'A Journey of Faith and Beauty',
+    'intro.description1': 'The Path of the Seven Saints is more than a simple hiking route: it is an experience that touches the soul, crossing the most significant places of spirituality in the Marche region.',
+    'intro.description2': 'From San Ruffino through the Sibillini Mountains to the Sanctuary of Ambro, a circular path that combines faith, nature and local traditions, offering moments of reflection and wonder.',
+    
+    'stats.stages': 'Stages',
+    'stats.totalKm': 'Total km',
+    'stats.days': 'Days',
+    
+    'whereWeAre.title': 'Where We Are',
+    'whereWeAre.description': 'The trail winds through the Sibillini Mountains in the Marche region. Click on the markers to get directions to the starting points of the stages.',
+    'whereWeAre.tip': 'Tip',
+    'whereWeAre.tipText': 'Click on a marker on the map to get directions from your location.',
     'nav.booking': 'Book',
     
     // Homepage
@@ -173,6 +198,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.totalKm': 'Gesamt km',
     'stats.days': 'Tage',
     
+    'whereWeAre.title': 'Wo Wir Sind',
+    'whereWeAre.description': 'Der Weg schlängelt sich durch die Sibillini-Berge in den Marken. Klicken Sie auf die Markierungen, um Wegbeschreibungen zu den Startpunkten der Etappen zu erhalten.',
+    'whereWeAre.tip': 'Tipp',
+    'whereWeAre.tipText': 'Klicken Sie auf eine Markierung auf der Karte, um eine Wegbeschreibung von Ihrem Standort zu erhalten.',
+    
     'trails.title': 'Die Fünf Etappen',
     'trails.subtitle': 'Eine Rundstrecke durch die heiligen Orte der Marken, zwischen Spiritualität, Natur und lokaler Kultur.',
     
@@ -232,6 +262,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.totalKm': 'km Totaux',
     'stats.days': 'Jours',
     
+    'whereWeAre.title': 'Où Nous Sommes',
+    'whereWeAre.description': 'Le parcours serpente à travers les Monts Sibillins dans les Marches. Cliquez sur les marqueurs pour obtenir des directions vers les points de départ des étapes.',
+    'whereWeAre.tip': 'Astuce',
+    'whereWeAre.tipText': 'Cliquez sur un marqueur sur la carte pour obtenir des directions depuis votre position.',
+    
     'trails.title': 'Les Cinq Étapes',
     'trails.subtitle': 'Un parcours circulaire à travers les lieux sacrés des Marches, entre spiritualité, nature et culture locale.',
     
@@ -290,6 +325,11 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.stages': 'Etapas',
     'stats.totalKm': 'km Totales',
     'stats.days': 'Días',
+    
+    'whereWeAre.title': 'Dónde Estamos',
+    'whereWeAre.description': 'El camino serpentea a través de las Montañas Sibillini en las Marcas. Haga clic en los marcadores para obtener direcciones a los puntos de partida de las etapas.',
+    'whereWeAre.tip': 'Consejo',
+    'whereWeAre.tipText': 'Haga clic en un marcador en el mapa para obtener direcciones desde su ubicación.',
     
     'trails.title': 'Las Cinco Etapas',
     'trails.subtitle': 'Una ruta circular a través de los lugares sagrados de las Marcas, entre espiritualidad, naturaleza y cultura local.',
