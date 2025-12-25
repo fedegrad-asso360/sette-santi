@@ -90,7 +90,7 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
             height="400px" 
             center={stage.coordinates} 
             zoom={12}
-            gpxUrl={stage.gpxUrl}
+            {...(stage.gpxUrl && { gpxUrl: stage.gpxUrl })}
           />
           
           {stage.gpxUrl && (
@@ -172,7 +172,7 @@ const nextStage = currentIndex < trailStages.length - 1 ? trailStages[currentInd
         <div class="text-center">
           <a 
             href="/"
-            class="bg-trail-gold text-trail-green px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
+            class="bg-trail-gold text-trail-brown px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
           >
             Tutte le Tappe
           </a>

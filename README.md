@@ -93,12 +93,12 @@ sette-santi/
 
 ## 🎨 Temi e Colori
 
-Il sito utilizza una palette di colori ispirata alla natura e alla spiritualità:
+Il sito utilizza una palette di colori naturali e armoniosa:
 
-- **trail-green** (`#2d5016`) - Verde principale per natura e crescita
-- **trail-brown** (`#8b4513`) - Marrone per la terra e i sentieri
-- **trail-gold** (`#d4af37`) - Oro per la spiritualità e l'illuminazione
-- **trail-sky** (`#87ceeb`) - Azzurro cielo per apertura e speranza
+- **trail-green** (`#5a8a6b`) - Verde naturale per il cammino e la crescita spirituale
+- **trail-brown** (`#5e3b20`) - Marrone del logo, terra e sentieri
+- **trail-gold** (`#d4af37`) - Oro per accenti spirituali e momenti speciali
+- **trail-sky** (`#87a8c3`) - Azzurro sereno per apertura e speranza
 
 ## 🗺️ Le Sette Tappe
 

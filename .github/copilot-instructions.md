@@ -146,10 +146,10 @@ src/data/
 ## Design Principles
 
 ### Color Usage
-- **trail-green** (`#2d5016`): Primary color, headers, CTAs, nature theme
-- **trail-brown** (`#8b4513`): Secondary color, accents, earthiness
-- **trail-gold** (`#d4af37`): Highlights, important info, spiritual theme
-- **trail-sky** (`#87ceeb`): Backgrounds, lightness, openness
+- **trail-green** (`#5a8a6b`): Primary color, headers, CTAs, nature and spiritual growth
+- **trail-brown** (`#5e3b20`): Secondary color from logo, accents, earthiness
+- **trail-gold** (`#d4af37`): Highlights, important info, spiritual moments
+- **trail-sky** (`#87a8c3`): Backgrounds, lightness, openness and hope
 
 ### Typography
 - Use Inter font family (already loaded)
